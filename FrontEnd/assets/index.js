@@ -33,7 +33,31 @@ fetch("http://localhost:5678/api/works")
 	console.log(err);
 });
 
+// Getting existing categories from api
+fetch("http://localhost:5678/api/categories")
+.then(function(response) {
+	if(response.ok) {
+		return response.json();
+	}
+})
+.then(function(data) {
+	let categories = data;
+	console.log(categories);
+	// Looping on each work
+	categories.forEach((category, index) => {
+		//console.log(category);
 
+		// <button>
+		let myButton = document.createElement('button');
+		myButton.textContent = category.name;
+
+		// Adding the new <button> into the existing div.filters
+		document.querySelector("div.filters").appendChild(myButton);
+	});
+})
+.catch(function(err) {
+	console.log(err);
+});
 
 
 
