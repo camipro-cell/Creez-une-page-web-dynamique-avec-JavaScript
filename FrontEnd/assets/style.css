@@ -67,10 +67,9 @@ body {
 
 ul {
 	list-style: none;
-	text-decoration: none;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 2.2em;
@@ -78,7 +77,7 @@ h2{
 	line-height: 36px;
 }
 
-li a:hover {
+li a:hover, .user-login-formulary a:hover {
 	color: #B1663C;
 }
 
@@ -87,12 +86,40 @@ a {
 	color: #000000;
 }
 
+.insta-logo {
+	width: 19px;
+	height: 19px;
+	margin-top: 5px;
+}
+
 button:hover {
 	cursor: pointer;
 }
+
 #introduction p, #contact label, #contact p, .gallery figcaption, .user-login-formulary label, .user-login-formulary a  {
     color: #3D3D3D;
 }
+
+h1 > span, #introduction p, .gallery figcaption, #contact p, nav a {
+	font-weight: 400;
+}
+
+#contact label, .user-login-formulary label, .user-login-formulary a {
+	font-weight: 500;
+}
+
+h1 .name-of-designer, .filters-design, #contact button, .user-login-formulary button {
+	font-family: 'Syne';
+}
+
+.user-login-formulary button, #portfolio .filter-all-categories, #contact button {
+	background-color: #1D6154;
+}
+
+#introduction p, #contact label, footer li a, .user-login-formulary label, .user-login-formulary a {
+	line-height: 16px;
+}
+
 /*** CSS HEADER ***/
 
 header {
@@ -100,6 +127,26 @@ header {
 	flex-direction: row;
 	justify-content: space-between;
 	margin: 50px 100px 0 100px;
+}
+
+h1 {
+	display: flex;
+	flex-direction: column;
+}
+
+h1 .name-of-designer {
+	font-weight: 800;
+	font-size: 1.6em;
+	line-height: 26px;
+	color: #B1663C
+}
+
+h1 .job-of-designer {
+	font-size: 0.680em;
+	line-height: 12px;
+	letter-spacing: 0.1em;
+	margin-top: 5px;
+	color: #B1663C
 }
 
 nav ul {
@@ -114,27 +161,7 @@ nav li {
 
 nav a {
 	font-size: 1.15em;
-	font-weight: 400;
 	line-height: 19px;
-}
-
-h1 {
-	display: flex;
-	flex-direction: column;
-	font-family: 'Syne';
-	font-size: 1.375em;
-	font-weight: 800;
-	line-height: 26px;
-	color: #B1663C
-}
-
-h1 > span {
-	font-family: 'Work Sans';
-	font-size: 0.625em;
-	line-height: 12px;
-	font-weight: 400;
-	letter-spacing: 0.1em;
-	margin-top: 5px;
 }
 
 /*** CSS #INTRODUCTION SECTION ***/
@@ -147,13 +174,12 @@ h1 > span {
 	padding: 130px 300px 140px 200px;
 }
 
-#introduction div {
-    width: 43%;
-	
-}
-
 #introduction img {
 	width: 50%;
+}
+
+#introduction div {
+    width: 43%;
 }
 
 #introduction h2 {
@@ -162,8 +188,6 @@ h1 > span {
 
 #introduction p {
 	margin-bottom: 15px;
-    font-weight: 400;
-	line-height: 16px;
 }
 
 /*** CSS #portfolio ***/
@@ -185,19 +209,17 @@ h1 > span {
 	padding: 50px 0 50px 0;
 }
 
-.buttons-design {
+.filters-design {
 	margin-left: 10px;
 	border: 1px solid #1D6154;
     border-radius: 60px;
-	font-family: 'Syne';
 	font-size: 1.15em;
 	color: #1D6154;
 	background-color: rgb(246, 246, 235);
 	padding: 7px 15px 7px 15px;
 }
 
-.button-all-categories {
-	background-color: #1D6154;
+.filter-all-categories {
 	color: #FFFFFF;
 	padding-left: 25px;
 	padding-right: 25px;
@@ -218,7 +240,6 @@ h1 > span {
 
 .gallery figcaption {
 	font-size: 0.930em;
-	font-weight: 400;
 	line-height: 15px;
 	padding-top: 7px;
 }
@@ -231,14 +252,14 @@ h1 > span {
 	text-align: left;
 }
 
+#contact > * {
+	text-align: center;
+}
+
 #contact {
 	width: 50%;
 	margin: auto;
-	padding: 0 160px 0 160px;
-}
-
-#contact > * {
-	text-align: center;
+	padding: 0 170px 0 170px;
 }
 
 #contact h2 {
@@ -247,7 +268,6 @@ h1 > span {
 
 #contact p {
 	font-size: 1.15em;
-	font-weight: 400;
 	line-height: 19px;
 }
 
@@ -260,8 +280,6 @@ h1 > span {
 
 #contact label {
 	margin: 40px 0 10px 0;
-	font-weight: 500;
-	line-height: 16px;
 }
 
 #contact textarea {
@@ -270,10 +288,8 @@ h1 > span {
 }
 
 #contact button {
-	font-family: 'Syne';
 	font-size: 1em;
 	color: white;
-	background-color: #1D6154;
 	margin : 30px auto 50px ;
 	text-align: center;
 	border: none;
@@ -293,13 +309,15 @@ footer nav ul {
 footer li a {
 	font-weight: 300;
     font-size: 1em;
-	line-height: 16px;
-    
 }
 
 /***** CSS Login page *****/
 
 /*** CSS Login Formulary ***/
+
+.typography-for-login-in-user-page {
+	font-weight: 600;
+}
 
 .user-login-formulary form {
 	display: flex;
@@ -310,7 +328,7 @@ footer li a {
 .user-login-formulary {
 	width: 50%;
 	margin: auto;
-	padding-top: 140px;
+	padding: 140px 170px 330px 170px;
 }
 
 .user-login-formulary h2 {
@@ -328,42 +346,19 @@ footer li a {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-.user-login-formulary label {
-	font-weight: 500;
-	line-height: 16px;
-}
-
-.typography-for-login-in-user-page {
-	font-weight: 600;
-}
-
 .user-login-formulary button {
-	margin: 40px auto 0;
+	margin: 40px auto 30px;
 	display: block;
-	background-color: #1D6154;
+	border: none;
 	color: #FFFFFF;
-	border: 1px solid #1D6154;
     border-radius: 60px;
-	font-family: 'Syne';
 	font-size: 1em;
 	padding: 10px 39px;
 }
 
 .user-login-formulary a {
 	margin: auto;
-	padding-top: 30px;
 	text-decoration: underline;
-	font-weight: 500;
-	line-height: 16px;
 }
 
-.user-login-formulary a:hover {
-	color: #B1663C;
-}
-
-/*** Footer ***/
-
-.space-footer-in-user-login-page {
-	margin-top: 330px;
-}
 

@@ -54,7 +54,7 @@ fetch("http://localhost:5678/api/categories")
     
 		// <button>
 		let myButton = document.createElement('button');
-		myButton.setAttribute('class', 'work-filter buttons-design');
+		myButton.setAttribute('class', 'work-filter filters-design');
 		myButton.setAttribute ('data-filter', 'category-id-?');
 		
 		myButton.textContent = category.name;
