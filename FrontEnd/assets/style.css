@@ -87,10 +87,12 @@ a {
 	color: #000000;
 }
 
-button:hover, #contact input[type="submit"]:hover {
+button:hover {
 	cursor: pointer;
 }
-
+#introduction p, #contact label, #contact p, .gallery figcaption, .user-login-formulary label, .user-login-formulary a  {
+    color: #3D3D3D;
+}
 /*** CSS HEADER ***/
 
 header {
@@ -218,7 +220,6 @@ h1 > span {
 	font-size: 0.930em;
 	font-weight: 400;
 	line-height: 15px;
-	color: #3D3D3D;
 	padding-top: 7px;
 }
 
@@ -240,8 +241,14 @@ h1 > span {
 	text-align: center;
 }
 
-#contact h2{
+#contact h2 {
 	margin-bottom: 10px;
+}
+
+#contact p {
+	font-size: 1.15em;
+	font-weight: 400;
+	line-height: 19px;
 }
 
 #contact input {
@@ -253,7 +260,6 @@ h1 > span {
 
 #contact label {
 	margin: 40px 0 10px 0;
-	color: #3D3D3D;
 	font-weight: 500;
 	line-height: 16px;
 }
@@ -263,16 +269,16 @@ h1 > span {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-#contact input[type="submit"] {
+#contact button {
 	font-family: 'Syne';
-	font-weight: 700;
+	font-size: 1em;
 	color: white;
-	height: 36px;
-	width: 180px;
 	background-color: #1D6154;
 	margin : 30px auto 50px ;
 	text-align: center;
+	border: none;
 	border-radius: 60px ;
+	padding: 10px 60px;
 }
 
 /*** CSS FOOTER ***/
@@ -325,7 +331,6 @@ footer li a {
 .user-login-formulary label {
 	font-weight: 500;
 	line-height: 16px;
-	color: #3D3D3D;
 }
 
 .typography-for-login-in-user-page {
@@ -348,7 +353,6 @@ footer li a {
 	margin: auto;
 	padding-top: 30px;
 	text-decoration: underline;
-	color: #3D3D3D;
 	font-weight: 500;
 	line-height: 16px;
 }
