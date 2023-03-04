@@ -70,11 +70,6 @@ ul {
 	text-decoration: none;
 }
 
-section {
-	margin: 130px 0 130px 0;
-	padding: 0 150px 0 150px;
-}
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -144,21 +139,19 @@ h1 > span {
 
 #introduction {
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
+	justify-content: space-between;
 	align-items: center;
+	padding: 130px 300px 140px 200px;
 }
 
-#introduction figure {
-	width: 50%;;
-}
-
-#introduction article {
-    width: 35%;
+#introduction div {
+    width: 43%;
+	
 }
 
 #introduction img {
-	display: block;
-	width: 83%;
+	width: 50%;
 }
 
 #introduction h2 {
@@ -169,6 +162,12 @@ h1 > span {
 	margin-bottom: 15px;
     font-weight: 400;
 	line-height: 16px;
+}
+
+/*** CSS #portfolio ***/
+
+#portfolio {
+	padding: 0 200px 60px 200px;
 }
 
 #portfolio h2 {
@@ -208,12 +207,11 @@ h1 > span {
 	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-row-gap: 15px;
 }
 
 .gallery img {
-	width: 100%;
+	width: 95%;
 }
 
 .gallery figcaption {
@@ -235,6 +233,7 @@ h1 > span {
 #contact {
 	width: 50%;
 	margin: auto;
+	padding: 0 160px 0 160px;
 }
 
 #contact > * {
@@ -271,7 +270,7 @@ h1 > span {
 	height: 36px;
 	width: 180px;
 	background-color: #1D6154;
-	margin : 30px auto ;
+	margin : 30px auto 50px ;
 	text-align: center;
 	border-radius: 60px ;
 }
