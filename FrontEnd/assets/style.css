@@ -120,13 +120,17 @@ h1 .name-of-designer, .filters-design, #contact button, .user-login-formulary bu
 	line-height: 16px;
 }
 
+#contact form, #contact > *, .user-login-formulary form, .user-login-formulary h2 {
+	min-width: 200px;
+}
+
 /*** CSS HEADER ***/
 
 header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	margin: 50px 100px 0 100px;
+	padding: 50px 50px 0 50px;
 }
 
 h1 {
@@ -171,7 +175,7 @@ nav a {
 	flex-direction: row-reverse;
 	justify-content: space-between;
 	align-items: center;
-	padding: 130px 300px 140px 200px;
+	padding: 130px 350px 140px 150px;
 }
 
 #introduction img {
@@ -193,7 +197,7 @@ nav a {
 /*** CSS #portfolio ***/
 
 #portfolio {
-	padding: 0 200px 60px 200px;
+	padding: 0 150px 60px 150px;
 }
 
 #portfolio h2 {
@@ -354,6 +358,7 @@ footer li a {
     border-radius: 60px;
 	font-size: 1em;
 	padding: 10px 39px;
+	min-width: 180px;
 }
 
 .user-login-formulary a {
@@ -362,3 +367,22 @@ footer li a {
 }
 
 
+@media screen and (max-width:1240px) {
+	
+#introduction {
+	padding: 130px 200px 140px 100px;
+ }
+#introduction div {
+	width: 45%;
+ }
+#introduction h2 {
+	margin-bottom: 10px;
+ }
+#introduction p {
+	margin-bottom: 10px;
+ }
+#portfolio {
+	padding: 0 100px 60px 100px;
+ }
+	
+}
