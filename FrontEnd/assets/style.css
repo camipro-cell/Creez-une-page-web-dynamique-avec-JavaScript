@@ -108,11 +108,11 @@ h1 > span, #introduction p, .gallery figcaption, #contact p, nav a {
 	font-weight: 500;
 }
 
-h1 .name-of-designer, .filters-design, #contact button, .user-login-formulary button {
+h1 .name-of-designer, .filters-design, #contact input[type="submit"], .user-login-formulary input[type="submit"] {
 	font-family: 'Syne';
 }
 
-.user-login-formulary button, #portfolio .filter-all-categories, #contact button {
+.user-login-formulary input[type="submit"], #portfolio .filter-all-categories, #contact input[type="submit"] {
 	background-color: #1D6154;
 }
 
@@ -291,14 +291,15 @@ nav a {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-#contact button {
-	font-size: 1em;
-	color: white;
+#contact input[type="submit"] {
+	height: 36px;
 	margin : 30px auto 50px ;
 	text-align: center;
 	border: none;
 	border-radius: 60px ;
 	padding: 10px 60px;
+	font-size: 1em;
+	color: white;
 }
 
 /*** CSS FOOTER ***/
@@ -350,8 +351,9 @@ footer li a {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-.user-login-formulary button {
+.user-login-formulary input[type="submit"] {
 	margin: 40px auto 30px;
+	height: 36px;
 	display: block;
 	border: none;
 	color: #FFFFFF;
