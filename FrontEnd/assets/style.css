@@ -92,7 +92,7 @@ a {
 	margin-top: 5px;
 }
 
-button:hover {
+input[type="submit"]:hover {
 	cursor: pointer;
 }
 

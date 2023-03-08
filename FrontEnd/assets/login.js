@@ -1,5 +1,5 @@
 
-const loginFormulary = {
+let loginFormulary = {
   password: document.querySelector("#password"),
   email: document.querySelector("#email"),
   submit: document.querySelector("#submit"),
@@ -36,10 +36,11 @@ fetch('http://localhost:5678/api/users/login', {
   
   console.log(data);
   localStorage.setItem("token", data.token);
-  if(user.value === true) {
+  localStorage.setItem("userID", 1)
+  if(user.email === true && user.password === true) {
     window.location = "http://127.0.0.1:5500/Portfolio-architecte-sophie-bluel/FrontEnd/index.html";
   } else {
-
+       
   }
  
  
@@ -48,9 +49,6 @@ fetch('http://localhost:5678/api/users/login', {
   console.log(err);
 }); 
 
-const accessToken = localStorage.getItem("token");
-console.log(accessToken);
-const id = localStorage.getItem("id");
-console.log(id);
+
 
 
