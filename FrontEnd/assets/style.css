@@ -388,3 +388,8 @@ footer li a {
  }
 	
 }
+
+.only-guest{display:block;}
+.only-admin{display:none;}
+body.connected .only-guest{display:none;}
+body.connected .only-admin{display:block;}

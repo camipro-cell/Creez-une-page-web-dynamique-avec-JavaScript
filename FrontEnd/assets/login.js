@@ -1,54 +1,47 @@
-
-let loginFormulary = {
-  password: document.querySelector("#password"),
-  email: document.querySelector("#email"),
-  submit: document.querySelector("#submit"),
-};
-
-
-loginFormulary.submit?.addEventListener('submit', function(event)
-{
-      event.preventDefault(event.target);
-      console.log(event.target);
-}); 
-  
-let user = {
-  email: 'sophie.bluel@test.tld',
-  password: 'S0phie'
-};
-
-
-fetch('http://localhost:5678/api/users/login', {
-  method: 'POST',
-  body: JSON.stringify(user),
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  }
- })
-  
-
-.then(function(response) {
-  if(response.ok) {
-    return response.json();
-  }
-})
-.then(function(data) {
-  
-  console.log(data);
-  localStorage.setItem("token", data.token);
-  localStorage.setItem("userID", 1)
-  if(user.email === true && user.password === true) {
-    window.location = "http://127.0.0.1:5500/Portfolio-architecte-sophie-bluel/FrontEnd/index.html";
-  } else {
-       
-  }
- 
- 
-})
-.catch(function(err) {
-  console.log(err);
-}); 
-
-
-
-
+// Executing JS code when the page is loaded
+document.addEventListener('DOMContentLoaded', function() {
+	document.getElementById('user-login-form').addEventListener('submit', function(event) {
+		event.preventDefault();
+		// Gathering data from form
+		const user = {
+			email: document.querySelector('#email').value,
+			password: document.querySelector('#password').value,
+		};
+		// Sending request in order to authentificate
+		fetch('http://localhost:5678/api/users/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(user),
+		})
+		.then(function(response) {
+			switch(response.status) {
+				case 500:
+				case 503:
+					alert("Erreur côté serveur");
+				break;
+				case 401:
+				case 404:
+					alert("Email ou mot de passe incorrect");
+				break;
+				case 200:
+					console.log("Authentification réussie");
+					return response.json();
+				break;
+				default:
+					alert("Erreur inconnue");
+				break;
+			}
+		})
+		.then(function(data) {
+			console.log(data);
+			localStorage.setItem('token', data.token);
+			localStorage.setItem('userID', data.userId)
+			location.href = 'index.html';
+		})
+		.catch(function(err) {
+			console.log(err);
+		});
+	});
+});
