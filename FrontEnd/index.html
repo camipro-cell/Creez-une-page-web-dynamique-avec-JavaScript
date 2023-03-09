@@ -6,23 +6,33 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 		<meta name="description" content="">
+		<script src="https://kit.fontawesome.com/a15c888155.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="./assets/style.css">
 		<script src="./assets/index.js"></script>
 	</head>
 	<body>
 		<header>
-			<h1><span class="name-of-designer">Sophie Bluel</span><span class="job-of-designer">ARCHITECTE D'INTÉRIEUR</span></h1>
-			<nav>
+			<nav id="top-bar" class="only-admin">
 				<ul>
-					<li><a href="#portfolio">projets</a></li>
-					<li><a href="#contact">contact</a></li>
-					<li><a id="nav-login" class="only-guest" href="login.html">login</a></li>
-					<li><a id="nav-logout" class="only-admin" href="#">logout</a></li>
-					<li><a href="https://www.instagram.com/" target="_blank"><img class="insta-logo" src="./assets/icons/instagram.png" alt="Instagram"></a></li>
+					<li><a href="#update-works"><i class="fa-sharp fa-regular fa-pen-to-square"></i>Mode édition</a></li>
+					<li><a href="#" class="publish-btn">publier les changements</a></li>
 				</ul>
 			</nav>
+			<div class="nav-for-user">
+				<h1><span class="name-of-designer">Sophie Bluel</span><span class="job-of-designer">ARCHITECTE D'INTÉRIEUR</span></h1>
+				<nav>
+					<ul>
+						<li><a href="#portfolio">projets</a></li>
+						<li><a href="#contact">contact</a></li>
+						<li><a id="nav-login" class="only-guest" href="login.html">login</a>
+							<a id="nav-logout" class="only-admin" href="#">logout</a>
+						</li>
+						<li><a href="https://www.instagram.com/" target="_blank"><img class="insta-logo" src="./assets/icons/instagram.png" alt="Instagram"></a></li>
+					</ul>
+				</nav>
+		</div>
 		</header>
 		<main>
 			<section id="introduction">
@@ -35,7 +45,12 @@
 					<img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel">
 			</section>
 			<section id="portfolio">
-				<h2>Mes projets</h2>
+				<div class="container-only-admin">
+					<h2>Mes projets</h2>
+					<div id="update-btn" class="only-admin">
+						<a href="#update-works"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
+					</div>
+				</div>
 				<div class="filters"></div>
 				<div class="gallery"></div>
 			</section>
@@ -60,5 +75,32 @@
 				</ul>
 			</nav>
 		</footer>
+		<!-- <div id="modal-works" class="modal"> -->
+				<div id="update-works" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby= "modal-title">
+          			<div id="modal-works" class="modal-gallery">
+						<a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+						<h3 class="modal-title">Galerie photo</h3>
+						<div class="modal-content"></div>
+						<div class="container-modal-add-and-modal-delete">
+		  					<button class="modal-add">Ajouter une photo</button>
+							<a href="#" class="modal-delete">Supprimer la galerie</a>
+         		 		</div>
+					</div>
+					<div id="modal-edit" class="modal-edit-work">
+						<a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+						<h3 class="modal-title">Ajout photo</h3>
+						<div class="add-photo"></div>
+						<form method="post" action="#">
+								<label for="title">Titre</label>
+								<input type="text" name="title" id="title">
+								<label for="category">Catégorie</label>
+								<input type="text" name="category" id="category">
+								<input type="submit" id="submit" value="Valider">
+						</form>
+					</div>
+				</div>
+					
+					
+		
 	</body>
 </html>

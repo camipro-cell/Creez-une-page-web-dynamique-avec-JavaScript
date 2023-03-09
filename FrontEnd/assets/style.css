@@ -77,7 +77,7 @@ h2 {
 	line-height: 36px;
 }
 
-li a:hover, .user-login-formulary a:hover {
+li a:hover, .user-login-formulary a:hover, #top-bar a:hover, .container-only-admin a:hover {
 	color: #B1663C;
 }
 
@@ -112,7 +112,7 @@ h1 .name-of-designer, .filters-design, #contact input[type="submit"], .user-logi
 	font-family: 'Syne';
 }
 
-.user-login-formulary input[type="submit"], #portfolio .filter-all-categories, #contact input[type="submit"] {
+.user-login-formulary input[type="submit"], #portfolio .filter-active, #contact input[type="submit"], .modal-add {
 	background-color: #1D6154;
 }
 
@@ -126,7 +126,7 @@ h1 .name-of-designer, .filters-design, #contact input[type="submit"], .user-logi
 
 /*** CSS HEADER ***/
 
-header {
+.nav-for-user {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -200,10 +200,6 @@ nav a {
 	padding: 0 150px 60px 150px;
 }
 
-#portfolio h2 {
-	text-align: center;
-}
-
 /*** CSS #portfolio filters ***/
 
 .filters {
@@ -223,7 +219,7 @@ nav a {
 	padding: 7px 15px 7px 15px;
 }
 
-.filter-all-categories {
+.filter-active {
 	color: #FFFFFF;
 	padding-left: 25px;
 	padding-right: 25px;
@@ -389,7 +385,162 @@ footer li a {
 	
 }
 
+
+/*** CSS only-admin Login ***/
+
 .only-guest{display:block;}
 .only-admin{display:none;}
 body.connected .only-guest{display:none;}
 body.connected .only-admin{display:block;}
+
+/* Top-bar */
+#top-bar {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	width: 100%;
+	height: 60px;
+	background-color: #000000;
+	display: none;
+}
+
+#top-bar li {
+	padding-left: 10px;
+}
+
+#top-bar i {
+	padding-right: 10px;
+	font-size: 16px;
+}
+
+#top-bar a {
+	color: #FFFFFF;
+}
+
+#top-bar .publish-btn {
+	background: #FFFFFF;
+	border-radius: 60px;
+	color: #000000;
+	padding: 9px 23px ;
+}
+
+/* "modifier" */
+.container-only-admin {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+
+.container-only-admin i {
+	padding-right: 10px;
+	font-size: 20px;
+}
+
+/*** CSS Modal ***/
+
+.modal-overlay {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: none;
+}
+
+.modal-gallery {
+	width: 630px;
+	height: 730px;
+	background-color: #FFFFFF;
+	display: none;
+}
+
+.modal-close {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-right: 30px;
+	padding-top: 30px;
+}
+
+.modal-title {
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+	padding-top: 15px;
+}
+
+.container-modal-add-and-modal-delete {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 510px;
+}
+
+.modal-add {
+	border: none;
+	border-radius: 60px;
+	color: #FFFFFF;
+	padding: 10px 49px;
+	font-family: 'Syne';
+	font-size: 1em;
+}
+
+.modal-delete {
+	font-family: 'Syne';
+	font-weight: 400;
+	font-size: 1em;
+	line-height: 17px;
+	color: #D65353;
+	padding-top: 20px;
+}
+
+/* second modal */
+
+.modal-edit-work {
+	width: 630px;
+	height: 670px;
+	background-color: #FFFFFF;
+	display: none;
+}
+
+.modal-edit-work form {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	padding: 215px 105px 55px 105px;
+}
+
+.modal-edit-work input[type="text"] {
+	height: 51px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
+}
+
+.modal-edit-work label {
+	padding-top: 20px;
+	padding-bottom: 10px;
+	color: #3D3D3D;
+	font-weight: 500;
+}
+
+.modal-edit-work input[type="submit"] {
+	background: #A7A7A7;
+	border-radius: 60px;
+	margin: 79px auto 50px;
+	padding: 10px 100px;
+	border: none;
+	color: #FFFFFF;
+	font-family: 'Syne';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1em;
+}
+
+
