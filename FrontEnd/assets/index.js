@@ -139,10 +139,10 @@ fetch("http://localhost:5678/api/works")
 
 // open modal with all galery photos with button "modifier"
 document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById('work').addEventListener('click', function(event) {
+	document.getElementById('button-for-open-modal').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
-		let modal = document.getElementById("update-works");
+		let modal = document.getElementById("modal");
 		modal.style.display = "flex";
 		let modalWorks = document.getElementById("modal-works");
 		modalWorks.style.display = "block";
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('close-modal').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
-		let modal = document.getElementById("update-works");
+		let modal = document.getElementById("modal");
 		modal.style.display = "none";
 		window.close = modal;
 		let modalWorks = document.getElementById("modal-works");
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('modal-close-second-window').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
-		let modal = document.getElementById("update-works");
+		let modal = document.getElementById("modal");
 		modal.style.display = "none";
 		window.close = modal;
 		let modalEdit = document.getElementById("modal-edit");
@@ -190,7 +190,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+	document.getElementById('arrow-return').addEventListener('click', function(event) {
+		event.preventDefault();
+		console.log(event);
+		let modal = document.getElementById("modal-works");
+		modal.style.display = "block";
+		let modalEdit = document.getElementById("modal-edit");
+		modalEdit.style.display = "none";
+		window.close = modalEdit;
 
+
+
+
+});
 })
 	
    
