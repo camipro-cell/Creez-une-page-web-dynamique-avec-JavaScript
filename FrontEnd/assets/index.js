@@ -50,6 +50,7 @@ fetch("http://localhost:5678/api/categories")
 		let myButton = document.createElement('button');
 		myButton.classList.add('work-filter');
 		myButton.classList.add('filters-design');
+		//myButton.classList.add('only-guest');
 		if(category.id === 0) myButton.classList.add('filter-active');
 		myButton.setAttribute('data-filter', category.id);
 		myButton.textContent = category.name;
@@ -147,40 +148,43 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalWorks.style.display = "block";
 		
 	});
-	// open modal with all galery photos with button "mode edition"
-	document.getElementById('edit').addEventListener('click', function(event) {
-		event.preventDefault();
-		console.log(event);
-		let modal = document.getElementById("update-works");
-		modal.style.display = "flex";
-		let modalWorks = document.getElementById("modal-works");
-		modalWorks.style.display = "block";
 	
-	}); 
 	 // close modal with all galery photos with button "x"
 	document.getElementById('close-modal').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
 		let modal = document.getElementById("update-works");
 		modal.style.display = "none";
+		window.close = modal;
 		let modalWorks = document.getElementById("modal-works");
 		modalWorks.style.display = "none";
+		window.close = modalWorks;
 
 }); 
-	// close modal with all galery photos with simple click outside of modal
-	document.getElementById('update-works').addEventListener('click', function(event) {
-		event.preventDefault();
-		console.log(event);
-		let modal = document.getElementById("update-works");
-		modal.style.display = "none";
-		let modalWorks = document.getElementById("modal-works");
-		modalWorks.style.display = "none";
 	
-});
 	//open second window of modal with button "Ajouter photo"
 	document.getElementById('modal-edit-add').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
+		let modal = document.getElementById("modal-works");
+		modal.style.display = "none";
+		window.close = modal;
+		let modalEdit = document.getElementById("modal-edit");
+		modalEdit.style.display = "block";
+		
+
+
+});
+  // close second window of modal with button "x"
+	document.getElementById('modal-close-second-window').addEventListener('click', function(event) {
+		event.preventDefault();
+		console.log(event);
+		let modal = document.getElementById("update-works");
+		modal.style.display = "none";
+		window.close = modal;
+		let modalEdit = document.getElementById("modal-edit");
+		modalEdit.style.display = "none";
+		window.close = modalEdit;
 	
 
 
