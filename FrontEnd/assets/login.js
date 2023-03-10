@@ -39,9 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
 			localStorage.setItem('token', data.token);
 			localStorage.setItem('userID', data.userId)
 			location.href = 'index.html';
-		})
+			let link = document.getElementsByClassName('only-admin');				//let modal = document.getElementById("update-works");
+			link.style.display = "block";	
+			location.href.open = link;								//modal.style.display = "block";
+																	//window.open = modal;
+																			//let modalWorks = document.getElementById("modal-works");
+																		//modalWorks.style.display = "block";
+																			//window.open = modalWorks;
+		});})
 		.catch(function(err) {
 			console.log(err);
 		});
 	});
-});
+
