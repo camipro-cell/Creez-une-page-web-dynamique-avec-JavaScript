@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			localStorage.setItem('userID', data.userId)
 			location.href = 'index.html';
 			
-		
 		})
 	
 		

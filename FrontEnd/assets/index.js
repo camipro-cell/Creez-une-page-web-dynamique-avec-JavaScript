@@ -149,9 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		space.style.paddingBottom = "100px";
 	}
 		
-	
 
-	
 	
 	// click on logout to deconnect
 	document.getElementById('nav-logout').addEventListener('click', function(event) {
