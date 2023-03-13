@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			email: document.querySelector('#email').value,
 			password: document.querySelector('#password').value,
 		};
+		
 		// Sending request in order to authentificate
 		fetch('http://localhost:5678/api/users/login', {
 			method: 'POST',
@@ -39,16 +40,17 @@ document.addEventListener('DOMContentLoaded', function() {
 			localStorage.setItem('token', data.token);
 			localStorage.setItem('userID', data.userId)
 			location.href = 'index.html';
-			let link = document.getElementsByClassName('only-admin');				//let modal = document.getElementById("update-works");
-			link.style.display = "block";	
-			location.href.open = link;								//modal.style.display = "block";
-																	//window.open = modal;
-																			//let modalWorks = document.getElementById("modal-works");
-																		//modalWorks.style.display = "block";
-																			//window.open = modalWorks;
-		});})
+			
+		
+		})
+	
+		
+		
 		.catch(function(err) {
 			console.log(err);
 		});
 	});
+});
+	
 
+		

@@ -94,11 +94,9 @@ fetch("http://localhost:5678/api/categories")
 .catch(function(err) {
 	console.log(err);
 });
-// Click on logout
+
 
 			
-		//localStorage.removeItem('userId');
-       // localStorage.removeItem('token');
 
 
 	   
@@ -137,8 +135,43 @@ fetch("http://localhost:5678/api/works")
 	console.log(err);
 });
 
-// open modal with all galery photos with button "modifier"
+
 document.addEventListener('DOMContentLoaded', function() {
+	// Check if the token and userid are present in the localStorage
+	
+	if(localStorage.getItem('token', 'userID') != null) {
+		document.querySelector('body').classList.add('connected');
+		let topBar = document.getElementById('top-bar');
+		topBar.style.display = "flex";
+		let filters = document.getElementById('all-filters');
+		filters.style.display = "none";
+		let space = document.getElementById('space-only-admin');
+		space.style.paddingBottom = "100px";
+	}
+		
+	
+
+	
+	
+	// click on logout to deconnect
+	document.getElementById('nav-logout').addEventListener('click', function(event) {
+		event.preventDefault();
+		console.log(event);
+		localStorage.removeItem('userId');
+		localStorage.removeItem('token');
+		document.querySelector('body').classList.remove(`connected`);
+	    let topBar = document.getElementById('top-bar');
+		topBar.style.display = "none";
+		let filters = document.getElementById('all-filters');
+		filters.style.display = "flex";
+		let space = document.getElementById('space-only-admin');
+		space.style.paddingBottom = "0"; 
+		
+	
+	});
+	
+	
+	// open modal with all galery photos with button "modifier"
 	document.getElementById('button-for-open-modal').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -160,9 +193,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalWorks.style.display = "none";
 		window.close = modalWorks;
 
-}); 
+	}); 
 	
-	//open second window of modal with button "Ajouter photo"
+	// open second window of modal with button "Ajouter photo"
 	document.getElementById('modal-edit-add').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -172,10 +205,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "block";
 		
-
-
-});
-  // close second window of modal with button "x"
+	});
+  	// close second window of modal with button "x"
 	document.getElementById('modal-close-second-window').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -186,10 +217,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalEdit.style.display = "none";
 		window.close = modalEdit;
 	
-
-
-});
-
+	});
+	// return first window of modal
 	document.getElementById('arrow-return').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -199,11 +228,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalEdit.style.display = "none";
 		window.close = modalEdit;
 
-
-
-
+	});
+	
 });
-})
-	
-   
-	
