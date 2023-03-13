@@ -12,9 +12,9 @@
 		<link rel="stylesheet" href="./assets/style.css">
 		<script src="./assets/index.js"></script>
 	</head>
-	<body class="connected">
+	<body>
 		<header>
-			<nav id="top-bar" class="only-admin">
+			<nav id="top-bar" class="top-bar-design">
 				<ul>
 					<li><a id="edit" href="#modal"><i class="fa-sharp fa-regular fa-pen-to-square"></i>Mode édition</a></li>
 					<li><a href="#" class="publish-btn">publier les changements</a></li>
@@ -36,22 +36,26 @@
 		</header>
 		<main>
 			<section id="introduction">
-					<div>
+						<div>
+						<a id ="update-description" class="only-admin update-btn" href="#"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
 						<h2>Designer d'espace</h2>
 						<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 						<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 						<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice).</p>
-				    </div>
-					<img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel">
-			</section>
+						</div>
+						<div>
+						<img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel">
+						<a id ="update-img" class="only-admin update-btn" href="#"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
+						</div>
+					</section>
 			<section id="portfolio">
-				<div class="container-only-admin">
+				<div id="space-only-admin" class="container-only-admin">
 					<h2>Mes projets</h2>
 					<div>
-						<a id ="button-for-open-modal" class="only-admin" href="#update-works"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
+						<a id ="update-works" class="only-admin update-btn" href="#update-works"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
 					</div>
 				</div>
-				<div class="filters"></div>
+				<div id="all-filters" class="filters"></div>
 				<div class="gallery"></div>
 			</section>
 			<section id="contact">
@@ -80,6 +84,7 @@
 				<a id="close-modal" href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
 				<h3 class="modal-title">Galerie photo</h3>
 				<div class="modal-content"></div>
+				<hr>
 				<div class="container-modal-add-and-modal-delete">
 		  			<button id="modal-edit-add" class="modal-add">Ajouter une photo</button>
 					<a href="#" class="modal-delete">Supprimer la galerie</a>
@@ -97,6 +102,7 @@
 					<input type="text" name="title" id="title">
 					<label for="category">Catégorie</label>
 					<input type="text" name="category" id="category">
+					<hr class="border-in-second-window-of-modal">
 					<input type="submit" id="submit" value="Valider">
 				</form>
 			</div>
