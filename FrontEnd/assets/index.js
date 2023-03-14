@@ -96,12 +96,6 @@ fetch("http://localhost:5678/api/categories")
 });
 
 
-			
-
-
-	   
-
-
 // New fetch for works in the modal
 fetch("http://localhost:5678/api/works") 
 .then(function(response) {
@@ -117,18 +111,24 @@ fetch("http://localhost:5678/api/works")
 		//console.log(work);
 		// <figure>
 		let myFigure = document.createElement('figure');
-		
+		myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
+		// <figcaption>
+		let myFigCaption = document.createElement('figcaption');
+		myFigCaption.textContent = 'éditer';
+		myFigure.appendChild(myFigCaption);
 		// <img>
 		let myImg = document.createElement('img');
 		myImg.setAttribute('src', work.imageUrl);
+		myImg.setAttribute('alt', work.title);
 		myFigure.appendChild(myImg);
-		// <figcaption>Abajour Tahina</figcaption>
-		let myFigCaption = document.createElement('figcaption');
-		myFigCaption.textContent = "éditer";
-		myFigure.appendChild(myFigCaption);
+		// trash icon 
+		let trashIcon = document.createElement('i');
+		trashIcon.classList.add('fa-solid', 'fa-trash-can', 'trash');
+		myFigure.appendChild(trashIcon);
 
-		// Adding the new <figure> into the existing div.gallery
+		// Adding the new <figure> into the existing div.modal-content
 		document.querySelector("div.modal-content").appendChild(myFigure);
+		
 	});
 })
 .catch(function(err) {
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	
 	// open modal with all galery photos with button "modifier"
-	document.getElementById('button-for-open-modal').addEventListener('click', function(event) {
+	document.getElementById('update-works').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
 		let modal = document.getElementById("modal");
@@ -180,52 +180,142 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 	});
 	
-	 // close modal with all galery photos with button "x"
-	document.getElementById('close-modal').addEventListener('click', function(event) {
+	 // close  first window of modal with button "x"
+	document.getElementById('button-to-close-first-window').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
 		let modal = document.getElementById("modal");
 		modal.style.display = "none";
-		window.close = modal;
 		let modalWorks = document.getElementById("modal-works");
 		modalWorks.style.display = "none";
-		window.close = modalWorks;
 
 	}); 
-	
+
 	// open second window of modal with button "Ajouter photo"
 	document.getElementById('modal-edit-add').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
-		let modal = document.getElementById("modal-works");
-		modal.style.display = "none";
-		window.close = modal;
+		let modalWorks = document.getElementById("modal-works");
+		modalWorks.style.display = "none";
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "block";
-		
+	
 	});
+	
   	// close second window of modal with button "x"
-	document.getElementById('modal-close-second-window').addEventListener('click', function(event) {
+	document.getElementById('button-to-close-second-window').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
 		let modal = document.getElementById("modal");
 		modal.style.display = "none";
-		window.close = modal;
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "none";
-		window.close = modalEdit;
 	
 	});
-	// return first window of modal
+	// return first window of modal with arrow
 	document.getElementById('arrow-return').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
-		let modal = document.getElementById("modal-works");
-		modal.style.display = "block";
+		let modalWorks = document.getElementById("modal-works");
+		modalWorks.style.display = "block";
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "none";
-		window.close = modalEdit;
 
 	});
 	
+	// Fetch to delete work
+	document.getElementsByTagName('fa-solid', 'fa-trash-can').addEventListener('click', function(event) {
+		event.preventDefault();
+		console.log(event);
+		
+		let verifyToken = localStorage.getItem('token');
+		
+		fetch('http://localhost:5678/api/works/1', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				'authorization': `Bearer ${verifyToken}`
+			}
+			
+		})
+		.then(function(response) {
+			switch(response.status) {
+				case 500:
+					alert("Comportement inattendu!");
+				break;
+				case 401:
+					alert("Suppresion impossible!");
+				break;
+				case 200:
+					console.log("Supprimer le projet");
+					return response.json();
+				break;
+				default:
+					alert("Erreur inconnue");
+				break;
+			}
+		})
+		.then(function(data) {
+			console.log(data);
+			
+			
+			
+		})
+	
+		.catch(function(err) {
+			console.log(err);
+		});
+	});
 });
+
+// Fetch to send a new work
+fetch('http://localhost:5678/api/works', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: response.json(data),
+		})
+		.then(function(response) {
+			if(response.ok) {
+				return response.json();
+			}
+			}
+		)
+		.then(function(data) {
+			console.log(data);
+			let newWorks = data;
+			console.log(newWorks);
+	// Looping on each work
+		newWorks.forEach((work, index) => {
+		//console.log(work);
+		// <figure>
+		let myFigure = document.createElement('figure');
+		myFigure.setAttribute ('class', `new-work-item category-id-0 category-id-${work.categoryId}`);
+		// <img>
+		let myImg = document.createElement('img');
+		myImg.setAttribute('src', newWorks.imageUrl);
+		myImg.setAttribute('alt', newWorks.title);
+		myFigure.appendChild(myImg);
+		// <figcaption>
+		let myFigCaption = document.createElement('figcaption');
+		myFigCaption.textContent = newWorks.title;
+		myFigure.appendChild(myFigCaption);
+		
+		
+
+		// Adding the new <figure> into the existing div.modal-content
+		document.querySelector("div.modal-content-new-work").appendChild(myFigure);
+		
+	});
+			
+			
+		})
+	
+		
+		
+		.catch(function(err) {
+			console.log(err);
+		});
+	
+	
