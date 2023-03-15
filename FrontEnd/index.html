@@ -36,7 +36,7 @@
 		</header>
 		<main>
 			<section id="introduction">
-						<div>
+						<div id="space-introduction-in-mode-admin">
 							<a id ="update-description" class="only-admin update-btn" href="#"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
 							<h2>Designer d'espace</h2>
 							<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
@@ -52,7 +52,7 @@
 				<div id="space-only-admin" class="container-only-admin">
 					<h2>Mes projets</h2>
 					<div>
-						<a id ="update-works" class="only-admin update-btn" href="#"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
+						<a id ="update-works" class="only-admin update-btn" href="#modal"><i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier</a>
 					</div>
 				</div>
 				<div id="all-filters" class="filters"></div>
@@ -87,7 +87,7 @@
 				<hr>
 				<div class="container-modal-add-and-modal-delete">
 		  			<button id="modal-edit-add" class="modal-add">Ajouter une photo</button>
-					<a href="#" class="modal-delete">Supprimer la galerie</a>
+					<a href="#" id="delete-all" class="modal-delete">Supprimer la galerie</a>
          		</div>
 			</div>
 			<div id="modal-edit" class="modal-edit-work">
@@ -96,12 +96,22 @@
 					<a id="button-to-close-second-window" href="#"><i class="fa-solid fa-xmark"></i></a>
 				</div>
 				<h3 class="modal-title">Ajout photo</h3>
-				<div class="modal-content-new-work"></div>
+				<div class="modal-content-new-work">
+					<i class="fa-regular fa-image"></i>
+					<button>+ Ajouter photo</button>
+					<p>jpg, png : 4mo max</p>
+
+				</div>
 				<form method="post" action="#">
 					<label for="title">Titre</label>
 					<input type="text" name="title" id="title">
 					<label for="category">Catégorie</label>
-					<input type="text" name="category" id="category">
+					<select category="choice-category" id="choice-category">
+						<option value=""></option>
+						<option value="Objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="Hôtel & restaurants">Hôtels & restaurants</option>
+					</select>
 					<hr class="border-in-second-window-of-modal">
 					<input type="submit" id="submit" value="Valider">
 				</form>

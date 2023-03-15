@@ -71,32 +71,26 @@ fetch("http://localhost:5678/api/categories")
 				
 			}); 
 			// the clicked button in filters turns green and the others return to their original color
-			const onClick = document.querySelectorAll('.work-filter');
-				for (let allCategories of onClick) {
+			const clickOnFilter = document.querySelectorAll('.work-filter');
+				for (let allCategories of clickOnFilter) {
 					allCategories.addEventListener('click', function() {
-					for(let allCategoriesremove of onClick) {
+					for(let allCategoriesremove of clickOnFilter) {
 						allCategoriesremove.classList.remove('filter-active')
 					}
 						allCategories.classList.add('filter-active')
 				
 				})
 			}
-			
-			   
 		});
-		
-
-
-		})
-	
 	})
+})
 
 .catch(function(err) {
 	console.log(err);
 });
 
 
-// New fetch for works in the modal
+// New fetch to see all works in the modal
 fetch("http://localhost:5678/api/works") 
 .then(function(response) {
 	if(response.ok) {
@@ -112,15 +106,15 @@ fetch("http://localhost:5678/api/works")
 		// <figure>
 		let myFigure = document.createElement('figure');
 		myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
-		// <figcaption>
-		let myFigCaption = document.createElement('figcaption');
-		myFigCaption.textContent = 'éditer';
-		myFigure.appendChild(myFigCaption);
 		// <img>
 		let myImg = document.createElement('img');
 		myImg.setAttribute('src', work.imageUrl);
 		myImg.setAttribute('alt', work.title);
 		myFigure.appendChild(myImg);
+		// <figcaption>
+		let myFigCaption = document.createElement('figcaption');
+		myFigCaption.textContent = 'éditer';
+		myFigure.appendChild(myFigCaption);
 		// trash icon 
 		let trashIcon = document.createElement('i');
 		trashIcon.classList.add('fa-solid', 'fa-trash-can', 'trash');
@@ -137,7 +131,7 @@ fetch("http://localhost:5678/api/works")
 
 
 document.addEventListener('DOMContentLoaded', function() {
-	// Check if the token and userid are present in the localStorage
+	// Check if the token and userId are present in the localStorage
 	
 	if(localStorage.getItem('token', 'userID') != null) {
 		document.querySelector('body').classList.add('connected');
@@ -147,10 +141,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		filters.style.display = "none";
 		let space = document.getElementById('space-only-admin');
 		space.style.paddingBottom = "100px";
+		let introduction = document.getElementById('space-introduction-in-mode-admin');
+		introduction.style.marginTop = "-50px";
 	}
 		
-
-	
 	// click on logout to deconnect
 	document.getElementById('nav-logout').addEventListener('click', function(event) {
 		event.preventDefault();
@@ -167,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 	
 	});
-	
 	
 	// open modal with all galery photos with button "modifier"
 	document.getElementById('update-works').addEventListener('click', function(event) {
@@ -212,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalEdit.style.display = "none";
 	
 	});
+	
 	// return first window of modal with arrow
 	document.getElementById('arrow-return').addEventListener('click', function(event) {
 		event.preventDefault();
@@ -222,21 +216,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalEdit.style.display = "none";
 
 	});
-	
+
 	// Fetch to delete work
-	document.getElementsByTagName('fa-solid', 'fa-trash-can').addEventListener('click', function(event) {
+	document.getElementById('delete-all').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
 		
-		let verifyToken = localStorage.getItem('token');
-		
-		fetch('http://localhost:5678/api/works/1', {
+		fetch(`http://localhost:5678/api/works/{id}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				'authorization': `Bearer ${verifyToken}`
-			}
-			
+			},
+			body: null,
 		})
 		.then(function(response) {
 			switch(response.status) {
@@ -266,15 +257,26 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.log(err);
 		});
 	});
-});
+	
+
+})
+	
+	
 
 // Fetch to send a new work
+document.addEventListener('DOMContentLoaded', function() {
+	
 fetch('http://localhost:5678/api/works', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: response.json(data),
+			body: JSON.stringify({
+			image: "string($binary)",
+			title: "string",
+			category: "integer($int64)"
+
+			})
 		})
 		.then(function(response) {
 			if(response.ok) {
@@ -284,38 +286,13 @@ fetch('http://localhost:5678/api/works', {
 		)
 		.then(function(data) {
 			console.log(data);
-			let newWorks = data;
-			console.log(newWorks);
-	// Looping on each work
-		newWorks.forEach((work, index) => {
-		//console.log(work);
-		// <figure>
-		let myFigure = document.createElement('figure');
-		myFigure.setAttribute ('class', `new-work-item category-id-0 category-id-${work.categoryId}`);
-		// <img>
-		let myImg = document.createElement('img');
-		myImg.setAttribute('src', newWorks.imageUrl);
-		myImg.setAttribute('alt', newWorks.title);
-		myFigure.appendChild(myImg);
-		// <figcaption>
-		let myFigCaption = document.createElement('figcaption');
-		myFigCaption.textContent = newWorks.title;
-		myFigure.appendChild(myFigCaption);
 		
 		
-
-		// Adding the new <figure> into the existing div.modal-content
-		document.querySelector("div.modal-content-new-work").appendChild(myFigure);
-		
-	});
-			
-			
-		})
+	})
 	
 		
 		
 		.catch(function(err) {
 			console.log(err);
 		});
-	
-	
+})
