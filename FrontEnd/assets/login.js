@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			email: document.querySelector('#email').value,
 			password: document.querySelector('#password').value,
 		};
-		
 		// Sending request in order to authentificate
 		fetch('http://localhost:5678/api/users/login', {
 			method: 'POST',
@@ -38,18 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		.then(function(data) {
 			console.log(data);
 			localStorage.setItem('token', data.token);
-			localStorage.setItem('userID', data.userId)
+			localStorage.setItem('userId', data.userId)
 			location.href = 'index.html';
-			
 		})
-	
-		
-		
 		.catch(function(err) {
 			console.log(err);
 		});
 	});
 });
-	
-
-		

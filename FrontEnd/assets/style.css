@@ -229,6 +229,9 @@ nav a {
 
 .filter-active {
 	color: #FFFFFF;
+}
+
+.filter-all {
 	padding-left: 25px;
 	padding-right: 25px;
 }
@@ -467,7 +470,7 @@ body.connected .only-admin{display:block;}
 /* First window of modal */
 
 .modal-gallery {
-	width: 630px;
+	width: 44%;
 	height: 730px;
 	background-color: #FFFFFF;
 	border-radius: 10px;
@@ -491,16 +494,37 @@ body.connected .only-admin{display:block;}
 	width: 80px;
 }
 
-.modal-content figure i {
-	margin-left: 60px;
+.modal-content figure .trash, #modal-works .work-item .cross {
 	margin-top: 5px;
-	font-size: 9px;
 	color: #FFFFFF;
 	background: #000000;
 	border-radius: 2px;
-	padding: 4px;
 	text-align: center;
 	position: absolute;
+}
+
+.modal-content figure .trash {
+	margin-left: 60px;
+	padding: 4px;
+	font-size: 9px;
+}
+
+#modal-works .work-item .cross {
+	margin-left: 40px;
+	padding: 3.5px;
+	font-size: 10px;
+}
+
+#modal-works figure .cross {
+	display: none;
+}
+
+#modal-works .work-item:hover {
+	cursor: pointer;
+}
+
+#modal-works figure:hover .cross {
+	display: flex;
 }
 
 .modal-content figcaption {

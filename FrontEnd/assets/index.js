@@ -14,6 +14,7 @@ fetch("http://localhost:5678/api/works")
 		// <figure>
 		let myFigure = document.createElement('figure');
 		myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
+		myFigure.setAttribute ('id', `work-item-${work.id}`);
 		// <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
 		let myImg = document.createElement('img');
 		myImg.setAttribute('src', work.imageUrl);
@@ -23,7 +24,6 @@ fetch("http://localhost:5678/api/works")
 		let myFigCaption = document.createElement('figcaption');
 		myFigCaption.textContent = work.title;
 		myFigure.appendChild(myFigCaption);
-
 		// Adding the new <figure> into the existing div.gallery
 		document.querySelector("div.gallery").appendChild(myFigure);
 	});
@@ -51,47 +51,46 @@ fetch("http://localhost:5678/api/categories")
 		myButton.classList.add('work-filter');
 		myButton.classList.add('filters-design');
 		//myButton.classList.add('only-guest');
-		if(category.id === 0) myButton.classList.add('filter-active');
+		if(category.id === 0) myButton.classList.add('filter-active', 'filter-all');
 		myButton.setAttribute('data-filter', category.id);
 		myButton.textContent = category.name;
-		
 		// Adding the new <button> into the existing div.filters
 		document.querySelector("div.filters").appendChild(myButton);
-
 		// Click event 
 		myButton.addEventListener('click', function(event) {
 			event.preventDefault();
+			// Handling filters
+			document.querySelectorAll('.work-filter').forEach((workFilter) => {
+				workFilter.classList.remove('filter-active');
+			});
+			event.target.classList.add('filter-active');
+			// Handling works
 			let categoryId = myButton.getAttribute('data-filter');
 			document.querySelectorAll('.work-item').forEach(workItem => {
 				workItem.style.display = 'none';
-				
 			});
 			document.querySelectorAll(`.work-item.category-id-${categoryId}`).forEach(workItem => {
 				workItem.style.display = 'block';
-				
-			}); 
-			// the clicked button in filters turns green and the others return to their original color
-			const clickOnFilter = document.querySelectorAll('.work-filter');
-				for (let allCategories of clickOnFilter) {
-					allCategories.addEventListener('click', function() {
-					for(let allCategoriesremove of clickOnFilter) {
-						allCategoriesremove.classList.remove('filter-active')
-					}
-						allCategories.classList.add('filter-active')
-				
-				})
-			}
+			});
 		});
 	})
 })
-
 .catch(function(err) {
 	console.log(err);
 });
 
 
+
+
+
+
+
+
+
+
+
 // New fetch to see all works in the modal
-fetch("http://localhost:5678/api/works") 
+fetch("http://localhost:5678/api/works")
 .then(function(response) {
 	if(response.ok) {
 		return response.json();
@@ -106,6 +105,7 @@ fetch("http://localhost:5678/api/works")
 		// <figure>
 		let myFigure = document.createElement('figure');
 		myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
+		myFigure.setAttribute ('id', `work-item-popup-${work.id}`);
 		// <img>
 		let myImg = document.createElement('img');
 		myImg.setAttribute('src', work.imageUrl);
@@ -115,25 +115,68 @@ fetch("http://localhost:5678/api/works")
 		let myFigCaption = document.createElement('figcaption');
 		myFigCaption.textContent = 'éditer';
 		myFigure.appendChild(myFigCaption);
-		// trash icon 
+		// cross icon
+		let crossDragDrop = document.createElement('i');
+		crossDragDrop.classList.add('fa-solid','fa-arrows-up-down-left-right', 'cross');
+		//crossDragDrop.style.display = "none";
+		myFigure.appendChild(crossDragDrop);
+		// trash icon
 		let trashIcon = document.createElement('i');
 		trashIcon.classList.add('fa-solid', 'fa-trash-can', 'trash');
 		myFigure.appendChild(trashIcon);
+		// Handling delete
+		trashIcon.addEventListener('click', function(event) {
+			event.preventDefault();
+			console.log(event);
+			// Fetch to delete work
+			fetch(`http://localhost:5678/api/works/${work.id}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': 'Bearer ' + localStorage.getItem('token')
+				}
+			})
+			.then(function(response) {
+				switch(response.status) {
+					case 500:
+						alert("Comportement inattendu!");
+					break;
+					case 401:
+						alert("Suppresion impossible!");
+					break;
+					case 200:
+					case 204:
+						console.log("Supprimer le projet");
+						delete confirm("Supression réussi!");
+						
+						// @todo
+						// Supprimer le work-item dans la popup
+						// Supprimer le work-item dans la page
+						// Travail préliminaire : A la création ajouter un id="work-item-X" (et work-popup-item-X) à chacun des work-items
+					break;
+					default:
+						alert("Erreur inconnue");
+					break;
+				}
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+			
+		});
 
 		// Adding the new <figure> into the existing div.modal-content
 		document.querySelector("div.modal-content").appendChild(myFigure);
-		
 	});
 })
 .catch(function(err) {
 	console.log(err);
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
+
 	// Check if the token and userId are present in the localStorage
-	
-	if(localStorage.getItem('token', 'userID') != null) {
+	if(localStorage.getItem('token') != null && localStorage.getItem('userId') != null) {
 		document.querySelector('body').classList.add('connected');
 		let topBar = document.getElementById('top-bar');
 		topBar.style.display = "flex";
@@ -144,25 +187,23 @@ document.addEventListener('DOMContentLoaded', function() {
 		let introduction = document.getElementById('space-introduction-in-mode-admin');
 		introduction.style.marginTop = "-50px";
 	}
-		
-	// click on logout to deconnect
+
+	// Click on logout to disconnect
 	document.getElementById('nav-logout').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
 		localStorage.removeItem('userId');
 		localStorage.removeItem('token');
 		document.querySelector('body').classList.remove(`connected`);
-	    let topBar = document.getElementById('top-bar');
+		let topBar = document.getElementById('top-bar');
 		topBar.style.display = "none";
 		let filters = document.getElementById('all-filters');
 		filters.style.display = "flex";
 		let space = document.getElementById('space-only-admin');
-		space.style.paddingBottom = "0"; 
-		
-	
+		space.style.paddingBottom = "0";
 	});
-	
-	// open modal with all galery photos with button "modifier"
+
+	// Open modal with all galery photos with button "modifier"
 	document.getElementById('update-works').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -170,10 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		modal.style.display = "flex";
 		let modalWorks = document.getElementById("modal-works");
 		modalWorks.style.display = "block";
-		
 	});
-	
-	 // close  first window of modal with button "x"
+
+	// Close first window of modal with button "x"
 	document.getElementById('button-to-close-first-window').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -181,21 +221,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		modal.style.display = "none";
 		let modalWorks = document.getElementById("modal-works");
 		modalWorks.style.display = "none";
-
-	}); 
-
-	// open second window of modal with button "Ajouter photo"
-	document.getElementById('modal-edit-add').addEventListener('click', function(event) {
-		event.preventDefault();
-		console.log(event);
-		let modalWorks = document.getElementById("modal-works");
-		modalWorks.style.display = "none";
-		let modalEdit = document.getElementById("modal-edit");
-		modalEdit.style.display = "block";
-	
 	});
-	
-  	// close second window of modal with button "x"
+
+	// Close second window of modal with button "x"
 	document.getElementById('button-to-close-second-window').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -203,10 +231,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		modal.style.display = "none";
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "none";
-	
 	});
-	
-	// return first window of modal with arrow
+
+	// Open second window of modal with button "Ajouter photo"
+	document.getElementById('modal-edit-add').addEventListener('click', function(event) {
+		event.preventDefault();
+		console.log(event);
+		let modalWorks = document.getElementById("modal-works");
+		modalWorks.style.display = "none";
+		let modalEdit = document.getElementById("modal-edit");
+		modalEdit.style.display = "block";
+	});
+
+	// Return first window of modal with arrow
 	document.getElementById('arrow-return').addEventListener('click', function(event) {
 		event.preventDefault();
 		console.log(event);
@@ -214,85 +251,32 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalWorks.style.display = "block";
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "none";
-
 	});
 
-	// Fetch to delete work
-	document.getElementById('delete-all').addEventListener('click', function(event) {
+	// Handling form
+	document.getElementById('modal-edit-work-form').addEventListener('submit', function(event) {
 		event.preventDefault();
-		console.log(event);
-		
-		fetch(`http://localhost:5678/api/works/{id}`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: null,
-		})
-		.then(function(response) {
-			switch(response.status) {
-				case 500:
-					alert("Comportement inattendu!");
-				break;
-				case 401:
-					alert("Suppresion impossible!");
-				break;
-				case 200:
-					console.log("Supprimer le projet");
-					return response.json();
-				break;
-				default:
-					alert("Erreur inconnue");
-				break;
-			}
-		})
-		.then(function(data) {
-			console.log(data);
-			
-			
-			
-		})
-	
-		.catch(function(err) {
-			console.log(err);
-		});
-	});
-	
-
-})
-	
-	
-
-// Fetch to send a new work
-document.addEventListener('DOMContentLoaded', function() {
-	
-fetch('http://localhost:5678/api/works', {
+		let formData = new FormData();
+		formData.append('title', document.getElementById('form-image').value);
+		formData.append('category', document.getElementById('form-image').value);
+		formData.append('image', document.getElementById('form-image').files[0]);
+		fetch('http://localhost:5678/api/works', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Authorization': 'Bearer ' + localStorage.getItem('token')
 			},
-			body: JSON.stringify({
-			image: "string($binary)",
-			title: "string",
-			category: "integer($int64)"
-
-			})
+			body: formData
 		})
 		.then(function(response) {
 			if(response.ok) {
 				return response.json();
 			}
-			}
-		)
+		})
 		.then(function(data) {
 			console.log(data);
-		
-		
-	})
-	
-		
-		
+		})
 		.catch(function(err) {
 			console.log(err);
 		});
+	});
 })

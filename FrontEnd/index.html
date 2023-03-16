@@ -80,15 +80,15 @@
 			</nav>
 		</footer>
 		<div id="modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby= "title">
-          	<div id="modal-works" class="modal-gallery">
+			<div id="modal-works" class="modal-gallery">
 				<a id="button-to-close-first-window" href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
 				<h3 class="modal-title title">Galerie photo</h3>
 				<div class="modal-content"></div>
 				<hr>
 				<div class="container-modal-add-and-modal-delete">
-		  			<button id="modal-edit-add" class="modal-add">Ajouter une photo</button>
+					<button id="modal-edit-add" class="modal-add">Ajouter une photo</button>
 					<a href="#" id="delete-all" class="modal-delete">Supprimer la galerie</a>
-         		</div>
+				</div>
 			</div>
 			<div id="modal-edit" class="modal-edit-work">
 				<div class="container-for-icon-in-second-window-of-modal">
@@ -100,13 +100,13 @@
 					<i class="fa-regular fa-image"></i>
 					<button>+ Ajouter photo</button>
 					<p>jpg, png : 4mo max</p>
-
 				</div>
-				<form method="post" action="#">
+				<form id="modal-edit-work-form" method="post" action="#">
 					<label for="title">Titre</label>
-					<input type="text" name="title" id="title">
+					<input type="text" name="title" id="form-title">
+					<input id="image" type="file" name="form-image" />
 					<label for="category">Catégorie</label>
-					<select category="choice-category" id="choice-category">
+					<select class="choice-category" id="form-category">
 						<option value=""></option>
 						<option value="Objets">Objets</option>
 						<option value="Appartements">Appartements</option>
@@ -118,4 +118,4 @@
 			</div>
 		</div>
 	</body>
-</html>
+	</html>
