@@ -79,10 +79,10 @@
 				</ul>
 			</nav>
 		</footer>
-		<div id="modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby= "title">
+		<div id="modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby= "title-modal-overlay">
 			<div id="modal-works" class="modal-gallery">
 				<a id="button-to-close-first-window" href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-				<h3 class="modal-title title">Galerie photo</h3>
+				<h3 id="title-modal-overlay" class="modal-title">Galerie photo</h3>
 				<div class="modal-content"></div>
 				<hr>
 				<div class="container-modal-add-and-modal-delete">
@@ -96,24 +96,26 @@
 					<a id="button-to-close-second-window" href="#"><i class="fa-solid fa-xmark"></i></a>
 				</div>
 				<h3 class="modal-title">Ajout photo</h3>
-				<div class="modal-content-new-work">
+				<form id="modal-edit-work-form" method="post" action="#">
+				<div class="modal-content-new-photo">
 					<i class="fa-regular fa-image"></i>
-					<button>+ Ajouter photo</button>
+					<label id="new-image" for="form-image">+ Ajouter photo</label>
+					<input id="form-image" type="file" name="form-image" max-size="4000" accept=".jpg, .jpeg, .png" multiple>
 					<p>jpg, png : 4mo max</p>
 				</div>
-				<form id="modal-edit-work-form" method="post" action="#">
-					<label for="title">Titre</label>
-					<input type="text" name="title" id="form-title">
-					<input id="image" type="file" name="form-image" />
-					<label for="category">Catégorie</label>
-					<select class="choice-category" id="form-category">
-						<option value=""></option>
-						<option value="Objets">Objets</option>
-						<option value="Appartements">Appartements</option>
-						<option value="Hôtel & restaurants">Hôtels & restaurants</option>
+				<div class="modal-content-new-category-title">
+					<label for="form-title">Titre</label>
+					<input type="text" name="title" id="form-title" value="" required>
+					<label for="form-category">Catégorie</label>
+					<select class="choice-category" id="form-category" required>
+						<option value="Option"></option>
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+						<option value="3">Hotels & restaurants</option>
 					</select>
 					<hr class="border-in-second-window-of-modal">
-					<input type="submit" id="submit" value="Valider">
+					<input type="submit" id="submit-new-work" value="Valider">
+					</div>
 				</form>
 			</div>
 		</div>

@@ -474,6 +474,7 @@ body.connected .only-admin{display:block;}
 	height: 730px;
 	background-color: #FFFFFF;
 	border-radius: 10px;
+	display: none;
 }
 
 .modal-content {
@@ -519,12 +520,12 @@ body.connected .only-admin{display:block;}
 	display: none;
 }
 
-#modal-works .work-item:hover {
-	cursor: pointer;
-}
-
 #modal-works figure:hover .cross {
 	display: flex;
+}
+
+#modal-works .work-item:hover {
+	cursor: pointer;
 }
 
 .modal-content figcaption {
@@ -600,7 +601,7 @@ hr {
 	font-size: 15px;
 }
 
-.modal-edit-work .modal-content-new-work{
+#modal-edit-work-form .modal-content-new-photo{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -611,13 +612,13 @@ hr {
 
 }
 
-.modal-content-new-work i {
+.modal-content-new-photo i {
 	font-size: 58px;
 	color: #B9C5CC;
 	padding-bottom: 20px;
 }
 
-.modal-content-new-work button {
+#modal-edit-work-form label[for="form-image"] {
 	background: #B9C5CC;
 	border: none;
 	border-radius: 50px;
@@ -626,51 +627,58 @@ hr {
 	font-size: 14px;
 	line-height: 16px;
 	color: #306685;
+	text-align: center;
 	padding: 10px 33px;
+	cursor: pointer;
 }
 
-.modal-content-new-work p {
+.modal-content-new-photo #form-image {
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+.modal-content-new-photo p {
 	font-weight: 400;
 	font-size: 10px;
 	line-height: 12px;
 	color: #444444;
-	padding-top: 7px;
+	padding-top: 14px;
 }
 
-.modal-edit-work form {
+#modal-edit-work-form .modal-content-new-category-title {
 	display: flex;
 	flex-direction: column;
 	text-align: left;
-	padding: 30px 105px 0 105px;
+	padding: 10px 105px 0 105px;
 }
 
-.modal-edit-work input[type="text"], select {
+#modal-edit-work-form input[type="text"], select {
 	height: 51px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
 }
 
-form #choice-category {
+#modal-edit-work-form #form-category {
 	color: #6C6C6C;
 }
 
-.modal-edit-work label {
+#modal-edit-work-form label {
 	padding-top: 20px;
 	padding-bottom: 10px;
 	color: #3D3D3D;
 	font-weight: 500;
 }
 
-.modal-edit-work .border-in-second-window-of-modal {
+#modal-edit-work-form .border-in-second-window-of-modal {
 	margin-left: 0;
 	margin-right: 0;
 	margin-top: 45px;
 }
 
-.modal-edit-work input[type="submit"] {
-	background: #A7A7A7;
+#modal-edit-work-form input[type="submit"] {
 	border-radius: 60px;
-	margin: 32px auto 55px;
+	margin: 30px auto 45px;
 	padding: 10px 90px;
 	border: none;
 	color: #FFFFFF;
