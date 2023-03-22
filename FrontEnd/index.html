@@ -99,16 +99,17 @@
 				<form id="modal-edit-work-form" method="post" action="#">
 				<div class="modal-content-new-photo">
 					<i class="fa-regular fa-image"></i>
-					<label id="new-image" for="form-image">+ Ajouter photo</label>
-					<input id="form-image" type="file" name="form-image" max-size="4000" accept=".jpg, .jpeg, .png" multiple>
+					<label id="new-image">+ Ajouter photo
+						<input id="form-image" type="file" name="form-image"  accept="image/*, .jpg, .jpeg, .png" required="required">
+					</label>
 					<p>jpg, png : 4mo max</p>
 				</div>
 				<div class="modal-content-new-category-title">
 					<label for="form-title">Titre</label>
-					<input type="text" name="title" id="form-title" value="" required>
+					<input type="text" name="title" id="form-title" value="" required="required">
 					<label for="form-category">Catégorie</label>
-					<select class="choice-category" id="form-category" required>
-						<option value="Option"></option>
+					<select class="choice-category" id="form-category" required="required">
+						<option value=""></option>
 						<option value="1">Objets</option>
 						<option value="2">Appartements</option>
 						<option value="3">Hotels & restaurants</option>

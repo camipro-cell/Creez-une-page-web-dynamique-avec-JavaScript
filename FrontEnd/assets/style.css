@@ -618,7 +618,7 @@ hr {
 	padding-bottom: 20px;
 }
 
-#modal-edit-work-form label[for="form-image"] {
+#modal-edit-work-form #new-image {
 	background: #B9C5CC;
 	border: none;
 	border-radius: 50px;
@@ -686,6 +686,7 @@ hr {
 	font-style: normal;
 	font-weight: 700;
 	font-size: 1em;
+	background-color: #A7A7A7;
 }
 
 
