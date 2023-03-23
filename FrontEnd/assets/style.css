@@ -659,8 +659,12 @@ hr {
 	border: none;
 }
 
-#modal-edit-work-form #form-category {
-	color: #6C6C6C;
+#modal-edit-work-form #form-title, #form-category {
+	color: #444444;
+	padding-left: 16px;
+	padding-right: 10px;
+	font-family: 'Work Sans';
+	font-size: 14px;
 }
 
 #modal-edit-work-form label {
