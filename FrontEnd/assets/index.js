@@ -10,17 +10,16 @@ fetch("http://localhost:5678/api/works")
 	console.log(works);
 	// Looping on each work
 	works.forEach((work, index) => {
-		
 		// Creation <figure>
 		let myFigure = document.createElement('figure');
 		myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
 		myFigure.setAttribute ('id', `work-item-${work.id}`);
-		// <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
+		// Creation <img>
 		let myImg = document.createElement('img');
 		myImg.setAttribute('src', work.imageUrl);
 		myImg.setAttribute('alt', work.title);
 		myFigure.appendChild(myImg);
-		// <figcaption>Abajour Tahina</figcaption>
+		// Creation <figcaption>
 		let myFigCaption = document.createElement('figcaption');
 		myFigCaption.textContent = work.title;
 		myFigure.appendChild(myFigCaption);
@@ -45,12 +44,10 @@ fetch("http://localhost:5678/api/categories")
 	console.log(categories);
 	// Looping on each work
 	categories.forEach((category, index) => {
-		//console.log(category);
-		// <button>
+		// Creation <button>
 		let myButton = document.createElement('button');
 		myButton.classList.add('work-filter');
 		myButton.classList.add('filters-design');
-		//myButton.classList.add('only-guest');
 		if(category.id === 0) myButton.classList.add('filter-active', 'filter-all');
 		myButton.setAttribute('data-filter', category.id);
 		myButton.textContent = category.name;
@@ -97,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Click on logout to disconnect
 	document.getElementById('nav-logout').addEventListener('click', function(event) {
 		event.preventDefault();
-		console.log(event);
 		localStorage.removeItem('userId');
 		localStorage.removeItem('token');
 		document.querySelector('body').classList.remove(`connected`);
@@ -112,9 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Open modal with all galery photos with button "modifier"
 	document.getElementById('update-works').addEventListener('click', function(event) {
 		event.preventDefault();
-		console.log(event);
-
-		// New fetch to see all works in the modal edit
+		// New fetch to see all works in the modal work
 		fetch("http://localhost:5678/api/works")
 		.then(function(response) {
 			if(response.ok) {
@@ -123,31 +117,28 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(function(data) {
 			let works = data;
-			console.log(works);
 			// Removing old works
 			document.querySelector('#modal-works.modal-gallery .modal-content').innerText = '';
 			// Looping on each work
 			works.forEach((work, index) => {
-				//console.log(work);
-				// <figure>
+				// Creation <figure>
 				let myFigure = document.createElement('figure');
 				myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
 				myFigure.setAttribute ('id', `work-item-popup-${work.id}`);
-				// <img>
+				// Creation <img>
 				let myImg = document.createElement('img');
 				myImg.setAttribute('src', work.imageUrl);
 				myImg.setAttribute('alt', work.title);
 				myFigure.appendChild(myImg);
-				// <figcaption>
+				// Creation <figcaption>
 				let myFigCaption = document.createElement('figcaption');
 				myFigCaption.textContent = 'éditer';
 				myFigure.appendChild(myFigCaption);
-				// cross icon
+				// Creation cross icon
 				let crossDragDrop = document.createElement('i');
 				crossDragDrop.classList.add('fa-solid','fa-arrows-up-down-left-right', 'cross');
-				//crossDragDrop.style.display = "none";
 				myFigure.appendChild(crossDragDrop);
-				// trash icon
+				// Creation trash icon
 				let trashIcon = document.createElement('i');
 				trashIcon.classList.add('fa-solid', 'fa-trash-can', 'trash');
 				myFigure.appendChild(trashIcon);
@@ -155,8 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				trashIcon.addEventListener('click', function(event) {
 					event.preventDefault();
 					if(confirm("Voulez-vous supprimer cet élément ?")) {
-						console.log(event);
-						// Fetch to delete work in the modal edit
+						// Fetch to delete work in the modal work
 						fetch(`http://localhost:5678/api/works/${work.id}`, {
 							method: 'DELETE',
 							headers: {
@@ -192,10 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						});
 					}
 				});
-
 				// Adding the new <figure> into the existing div.modal-content
 				document.querySelector("div.modal-content").appendChild(myFigure);
-
 				// Opening modal work
 				let modal = document.getElementById("modal");
 				modal.style.display = "flex";
@@ -212,17 +200,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.querySelectorAll('#modal-works').forEach(modalWorks => {
 		modalWorks.addEventListener('click', function(event) {
 			event.stopPropagation();
-			console.log(event);
 		})
-
 		document.querySelectorAll('#modal-edit').forEach(modalEdit => {
 			modalEdit.addEventListener('click', function(event) {
 				event.stopPropagation();
-				console.log(event);
 			})
 			document.getElementById("modal").addEventListener('click', function(event) {
 				event.preventDefault();
-				console.log(event);
 				let modal = document.getElementById("modal");
 				modal.style.display = "none";
 				let modalWorks = document.getElementById("modal-works");
@@ -231,7 +215,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				modalEdit.style.display = "none";
 				// Reset all form in the modal edit 
 				document.getElementById('modal-edit-work-form').reset();
-				document.getElementById('form-image-preview').remove();	
+				if(document.getElementById('form-image-preview') != null) {
+					document.getElementById('form-image-preview').remove();
+				}	
 				let iconNewPhoto = document.getElementById("photo-add-icon");
 				iconNewPhoto.style.display= "block";
 				let buttonNewPhoto = document.getElementById("new-image");
@@ -240,7 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				photoMaxSize.style.display= "block";	
 				let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 				modalEditPhoto.style.padding = "30px 0 19px 0";
-				//document.getElementById("submit-new-work").disabled = true;
 				document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
 			});
 		});
@@ -249,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Close first window of modal with button "x"
 	document.getElementById('button-to-close-first-window').addEventListener('click', function(event) {
 		event.preventDefault();
-		console.log(event);
 		let modal = document.getElementById("modal");
 		modal.style.display = "none";
 		let modalWorks = document.getElementById("modal-works");
@@ -259,15 +243,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Close second window of modal with button "x"
 	document.getElementById('button-to-close-second-window').addEventListener('click', function(event) {
 		event.preventDefault();
-		console.log(event);
 		let modal = document.getElementById("modal");
 		modal.style.display = "none";
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "none";
-		
 		// Reset all form in the modal edit 
 		document.getElementById('modal-edit-work-form').reset();
-		document.getElementById('form-image-preview').remove();
+		if(document.getElementById('form-image-preview') != null) {
+			document.getElementById('form-image-preview').remove();
+		}
 		let iconNewPhoto = document.getElementById("photo-add-icon");
 		iconNewPhoto.style.display= "block";
 		let buttonNewPhoto = document.getElementById("new-image");
@@ -276,14 +260,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		photoMaxSize.style.display= "block";	
 		let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 		modalEditPhoto.style.padding = "30px 0 19px 0";
-		//document.getElementById("submit-new-work").disabled = true;
 		document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
 	});
 
 	// Open second window of modal with button "Ajouter photo"
 	document.getElementById('modal-edit-add').addEventListener('click', function(event) {
 		event.preventDefault();
-		console.log(event);
 		let modalWorks = document.getElementById("modal-works");
 		modalWorks.style.display = "none";
 		let modalEdit = document.getElementById("modal-edit");
@@ -293,15 +275,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Return first window of modal with arrow
 	document.getElementById('arrow-return').addEventListener('click', function(event) {
 		event.preventDefault();
-		console.log(event);
 		let modalWorks = document.getElementById("modal-works");
 		modalWorks.style.display = "block";
 		let modalEdit = document.getElementById("modal-edit");
 		modalEdit.style.display = "none";
-		
 		// Reset all form in the modal edit 
 		document.getElementById('modal-edit-work-form').reset();
-		document.getElementById('form-image-preview').remove();	
+		if(document.getElementById('form-image-preview') != null) {
+			document.getElementById('form-image-preview').remove();
+		}
 		let iconNewPhoto = document.getElementById("photo-add-icon");
 		iconNewPhoto.style.display= "block";
 		let buttonNewPhoto = document.getElementById("new-image");
@@ -310,25 +292,42 @@ document.addEventListener('DOMContentLoaded', function() {
 		photoMaxSize.style.display= "block";	
 		let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 		modalEditPhoto.style.padding = "30px 0 19px 0";
-		//document.getElementById("submit-new-work").disabled = true;
 		document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
 
+	});
+	
+	// Fetch to add category options in modal edit
+	fetch("http://localhost:5678/api/categories")
+		.then(function(response) {
+		if(response.ok) {
+		return response.json();
+		}
+	})
+		.then(function(data) {
+		console.log(data);
+		let categories = data;
+		// Looping on each categories
+		categories.forEach((category, index) => {
+		// Creation <options> in modal edit
+		let myOption = document.createElement('option');
+		myOption.setAttribute('value', category.id);
+		myOption.textContent = category.name;
+		// Adding the new <option> into the existing select.choice-category
+		document.querySelector("select.choice-category").appendChild(myOption);
+		})
+	})
+		.catch(function(err) {
+		console.log(err);
 	});
 
 	// Handling form
 	document.getElementById("modal-edit-work-form").addEventListener('submit', function(event) {
 		event.preventDefault();
-		let title = document.getElementById('form-title');
-		let category = document.getElementById('form-category');
-		let image = document.getElementById('form-image');
-		if(title.value.trim() === "" || category.value.trim() === "" || image.files.length === 0) {
-			return alert ("Veuillez remplir tous les champs du formulaire!");
-		}
-		console.log(event);
 		let formData = new FormData();
 		formData.append('title', document.getElementById('form-title').value);
 		formData.append('category', document.getElementById('form-category').value);
 		formData.append('image', document.getElementById('form-image').files[0]);
+		// New fetch to post new work
 		fetch('http://localhost:5678/api/works', {
 			method: 'POST',
 			headers: {
@@ -359,16 +358,16 @@ document.addEventListener('DOMContentLoaded', function() {
 		.then(function(json) {
 			console.log(json);
 			// Creating HTML element
-			// <figure>
+			// Creation <figure>
 			let myFigure = document.createElement('figure');
 			myFigure.setAttribute ('class', `work-item category-id-0 category-id-${json.categoryId}`);
 			myFigure.setAttribute ('id', `work-item-${json.id}`);
-			// <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
+			// Creation <img>
 			let myImg = document.createElement('img');
 			myImg.setAttribute('src', json.imageUrl);
 			myImg.setAttribute('alt', json.title);
 			myFigure.appendChild(myImg);
-			// <figcaption>Abajour Tahina</figcaption>
+			// Creation <figcaption>
 			let myFigCaption = document.createElement('figcaption');
 			myFigCaption.textContent = json.title;
 			myFigure.appendChild(myFigCaption);
@@ -381,7 +380,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			modalEdit.style.display = "none";
 			// Reset all form in the modal edit 
 			document.getElementById('modal-edit-work-form').reset();
-			document.getElementById('form-image-preview').remove();
+			if(document.getElementById('form-image-preview') != null) {
+				document.getElementById('form-image-preview').remove();
+			}
 			let iconNewPhoto = document.getElementById("photo-add-icon");
 			iconNewPhoto.style.display= "block";
 			let buttonNewPhoto = document.getElementById("new-image");
@@ -390,13 +391,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			photoMaxSize.style.display= "block";	
 			let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 			modalEditPhoto.style.padding = "30px 0 19px 0";
-			//document.getElementById("submit-new-work").disabled = true;
 			document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
 		})
 		.catch(function(err) {
 			console.log(err);
 		});
-	})
+	});
 
 	// Check the size of the image file
 	document.getElementById('form-image').addEventListener('change', () => {
@@ -423,8 +423,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				photoMaxSize.style.display= "none";	
 				let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 				modalEditPhoto.style.padding = "0";
-				
-
 			}
 		}
 	});
@@ -441,10 +439,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		let image = document.getElementById('form-image');
 		let submitWork = document.getElementById("submit-new-work");
 		if(title.value.trim() === "" || category.value.trim() === "" || image.files.length === 0) {
-			//submitWork.disabled = true;
 			submitWork.style.backgroundColor= "#A7A7A7";
 		} else {
-			//submitWork.disabled = false;
 			submitWork.style.backgroundColor= "#1D6154";
 		}
 	};

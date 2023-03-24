@@ -96,19 +96,22 @@ input[type="submit"]:hover, button:hover {
 	cursor: pointer;
 }
 
-#introduction p, #contact label, #contact p, .gallery figcaption, .user-login-formulary label, .user-login-formulary a  {
+#introduction p, #contact label, #contact p, .gallery figcaption, .user-login-formulary label, 
+.user-login-formulary a, #modal-edit-work-form label {
     color: #3D3D3D;
 }
 
-h1 > span, #introduction p, .gallery figcaption, #contact p, nav a {
+h1 > span, #introduction p, .gallery figcaption, #contact p, nav a, .modal-title, .modal-delete-all,
+.modal-content-new-photo p {
 	font-weight: 400;
 }
 
-#contact label, .user-login-formulary label, .user-login-formulary a {
+#contact label, .user-login-formulary label, .user-login-formulary a, #modal-edit-work-form #new-image {
 	font-weight: 500;
 }
 
-h1 .name-of-designer, .filters-design, #contact input[type="submit"], .user-login-formulary input[type="submit"] {
+h1 .name-of-designer, .filters-design, #contact input[type="submit"], .user-login-formulary input[type="submit"],
+.modal-delete-all, #modal-edit-work-form input[type="submit"] {
 	font-family: 'Syne';
 }
 
@@ -208,7 +211,7 @@ nav a {
 	padding: 0 150px 60px 150px;
 }
 
-/*** CSS #portfolio filters ***/
+/* CSS #portfolio filters */
 
 .filters {
 	display: flex;
@@ -236,7 +239,7 @@ nav a {
 	padding-right: 25px;
 }
 
-/*** CSS #portfolio gallery ***/
+/* CSS #portfolio gallery */
 
 .gallery {
 	width: 100%;
@@ -399,14 +402,14 @@ footer li a {
 	
 }
 
-/*** CSS only-admin Login ***/
+/***** CSS only-admin *****/
 
 .only-guest{display:block;}
 .only-admin{display:none;}
 body.connected .only-guest{display:none;}
 body.connected .only-admin{display:block;}
 
-/* Top-bar */
+/*** Top-bar ***/
 .top-bar-design {
 	display: flex;
 	flex-direction: row;
@@ -438,7 +441,7 @@ body.connected .only-admin{display:block;}
 	padding: 9px 23px ;
 }
 
-/* "modifier" */
+/* Click "modifier" to open modal */
 .container-only-admin {
 	display: flex;
 	flex-direction: row;
@@ -467,7 +470,7 @@ body.connected .only-admin{display:block;}
 	display: none;
 }
 
-/* First window of modal */
+/* First window of modal, "modal-works" */
 
 .modal-gallery {
 	width: 44%;
@@ -542,7 +545,6 @@ body.connected .only-admin{display:block;}
 }
 
 .modal-title {
-	font-weight: 400;
 	font-size: 26px;
 	line-height: 30px;
 	text-align: center;
@@ -574,16 +576,14 @@ hr {
 	font-weight: 700;
 }
 
-.modal-delete {
-	font-family: 'Syne';
-	font-weight: 400;
+.modal-delete-all {
 	font-size: 1em;
 	line-height: 17px;
 	color: #D65353;
 	padding-top: 20px;
 }
 
-/* second window of modal */
+/* Second window of modal, "modal-edit" */
 
 .modal-edit-work {
 	width: 630px;
@@ -623,23 +623,29 @@ hr {
 	border: none;
 	border-radius: 50px;
 	font-family: 'Work Sans';
-	font-weight: 500;
 	font-size: 14px;
 	line-height: 16px;
 	color: #306685;
 	text-align: center;
 	padding: 10px 33px;
+}
+
+#modal-edit-work-form #new-image:hover {
 	cursor: pointer;
 }
 
 .modal-content-new-photo #form-image {
-	width: 0;
-	height: 0;
-	visibility: hidden;
+	margin-top: -36px;
+	width: 173px;
+	background: #B9C5CC;
+	border: none;
+	border-radius: 50px;
+	padding: 10px 0 10px 0;
+	opacity: 0;
+	cursor: pointer;
 }
 
 .modal-content-new-photo p {
-	font-weight: 400;
 	font-size: 10px;
 	line-height: 12px;
 	color: #444444;
@@ -662,7 +668,6 @@ hr {
 #modal-edit-work-form #form-title, #form-category {
 	color: #444444;
 	padding-left: 16px;
-	padding-right: 10px;
 	font-family: 'Work Sans';
 	font-size: 14px;
 }
@@ -670,7 +675,6 @@ hr {
 #modal-edit-work-form label {
 	padding-top: 20px;
 	padding-bottom: 10px;
-	color: #3D3D3D;
 	font-weight: 500;
 }
 
@@ -686,7 +690,6 @@ hr {
 	padding: 10px 90px;
 	border: none;
 	color: #FFFFFF;
-	font-family: 'Syne';
 	font-style: normal;
 	font-weight: 700;
 	font-size: 1em;
