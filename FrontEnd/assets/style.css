@@ -77,7 +77,8 @@ h2 {
 	line-height: 36px;
 }
 
-li a:hover, .user-login-formulary a:hover, #top-bar a:hover, .container-only-admin a:hover, .update-btn:hover {
+li a:hover, .user-login-formulary a:hover, #top-bar a:hover, .container-only-admin a:hover,
+.update-btn:hover {
 	color: #B1663C;
 }
 
@@ -106,7 +107,8 @@ h1 > span, #introduction p, .gallery figcaption, #contact p, nav a, .modal-title
 	font-weight: 400;
 }
 
-#contact label, .user-login-formulary label, .user-login-formulary a, #modal-edit-work-form #new-image {
+#contact label, .user-login-formulary label, .user-login-formulary a, #modal-edit-work-form #new-image,
+.modal-content-new-category-title label {
 	font-weight: 500;
 }
 
@@ -127,6 +129,14 @@ h1 .name-of-designer, .filters-design, #contact input[type="submit"], .user-logi
 	min-width: 200px;
 }
 
+.only-guest {
+	display:block;
+}
+
+.only-admin {
+	display:none;
+}
+
 /*** CSS HEADER ***/
 
 .nav-for-user {
@@ -145,7 +155,7 @@ h1 .name-of-designer {
 	font-weight: 800;
 	font-size: 1.6em;
 	line-height: 26px;
-	color: #B1663C
+	color: #B1663C;
 }
 
 h1 .job-of-designer {
@@ -153,7 +163,7 @@ h1 .job-of-designer {
 	line-height: 12px;
 	letter-spacing: 0.1em;
 	margin-top: 5px;
-	color: #B1663C
+	color: #B1663C;
 }
 
 nav ul {
@@ -217,7 +227,7 @@ nav a {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	padding: 50px 0 50px 0;
+	padding: 50px 0;
 }
 
 .filters-design {
@@ -227,7 +237,7 @@ nav a {
 	font-size: 1.15em;
 	color: #1D6154;
 	background-color: rgb(246, 246, 235);
-	padding: 7px 15px 7px 15px;
+	padding: 7px 15px;
 }
 
 .filter-active {
@@ -273,7 +283,7 @@ nav a {
 #contact {
 	width: 50%;
 	margin: auto;
-	padding: 0 170px 0 170px;
+	padding: 0 170px;
 }
 
 #contact h2 {
@@ -310,12 +320,14 @@ nav a {
 	padding: 10px 60px;
 	font-size: 1em;
 	color: white;
+	font-weight: 700;
 }
 
 /*** CSS FOOTER ***/
 
 footer nav ul {
 	display: flex;
+	flex-direction: row;
 	justify-content: flex-end;
 	padding: 25px 100px 20px 0;
 	background-color: #FFFFFF;
@@ -324,6 +336,28 @@ footer nav ul {
 footer li a {
 	font-weight: 300;
     font-size: 1em;
+}
+
+@media screen and (max-width:1240px) {
+	
+ #introduction {
+	padding: 130px 200px 140px 100px;
+ }
+ #introduction div {
+	width: 45%;
+ }
+ #introduction h2 {
+	margin-bottom: 5px;
+ }
+ #introduction p {
+	margin-bottom: 5px;
+ }
+ #introduction #update-description {
+	padding-bottom: 10px;
+ }
+ #portfolio {
+	padding: 0 100px 60px 100px;
+ }
 }
 
 /***** CSS Login page *****/
@@ -378,38 +412,18 @@ footer li a {
 	text-decoration: underline;
 }
 
+/***** CSS admin mode only *****/
 
-@media screen and (max-width:1240px) {
-	
-#introduction {
-	padding: 130px 200px 140px 100px;
- }
-#introduction div {
-	width: 45%;
- }
-#introduction h2 {
-	margin-bottom: 5px;
- }
-#introduction p {
-	margin-bottom: 5px;
- }
-#introduction #update-description {
-	padding-bottom: 10px;
-}
-#portfolio {
-	padding: 0 100px 60px 100px;
- }
-	
+body.connected .only-guest {
+	display:none;
 }
 
-/***** CSS only-admin *****/
-
-.only-guest{display:block;}
-.only-admin{display:none;}
-body.connected .only-guest{display:none;}
-body.connected .only-admin{display:block;}
+body.connected .only-admin {
+	display:block;
+}
 
 /*** Top-bar ***/
+
 .top-bar-design {
 	display: flex;
 	flex-direction: row;
@@ -418,7 +432,6 @@ body.connected .only-admin{display:block;}
 	height: 60px;
 	background-color: #000000;
 	display: none;
-	
 }
 
 .top-bar-design li {
@@ -441,7 +454,8 @@ body.connected .only-admin{display:block;}
 	padding: 9px 23px ;
 }
 
-/* Click "modifier" to open modal */
+/*** Click "modifier" to open modal ***/
+
 .container-only-admin {
 	display: flex;
 	flex-direction: row;
@@ -460,6 +474,7 @@ body.connected .only-admin{display:block;}
 .modal-overlay {
 	position: fixed;
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	top: 0;
@@ -486,7 +501,6 @@ body.connected .only-admin{display:block;}
 	flex-wrap: wrap;
 	padding: 45px 90px 45px 100px;
 	gap: 10px;
-    
 }
 
 .modal-content figure {
@@ -498,7 +512,7 @@ body.connected .only-admin{display:block;}
 	width: 80px;
 }
 
-.modal-content figure .trash, #modal-works .work-item .cross {
+.modal-content .work-item .trash, .modal-content .work-item .cross {
 	margin-top: 5px;
 	color: #FFFFFF;
 	background: #000000;
@@ -507,27 +521,27 @@ body.connected .only-admin{display:block;}
 	position: absolute;
 }
 
-.modal-content figure .trash {
+.modal-content .work-item .trash {
 	margin-left: 60px;
 	padding: 4px;
 	font-size: 9px;
 }
 
-#modal-works .work-item .cross {
+.modal-content .work-item .cross {
 	margin-left: 40px;
 	padding: 3.5px;
 	font-size: 10px;
 }
 
-#modal-works figure .cross {
+.modal-content .work-item .cross {
 	display: none;
 }
 
-#modal-works figure:hover .cross {
+.modal-content .work-item:hover .cross {
 	display: flex;
 }
 
-#modal-works .work-item:hover {
+.modal-content .work-item:hover {
 	cursor: pointer;
 }
 
@@ -545,7 +559,7 @@ body.connected .only-admin{display:block;}
 }
 
 .modal-title {
-	font-size: 26px;
+	font-size: 1.860em;
 	line-height: 30px;
 	text-align: center;
 	padding-top: 15px;
@@ -601,15 +615,14 @@ hr {
 	font-size: 15px;
 }
 
-#modal-edit-work-form .modal-content-new-photo{
+#modal-edit-work-form .modal-content-new-photo {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 30px 0 19px 0;
-	background: #E8F1F7;
+	background-color: #E8F1F7;
 	border-radius: 3px;
 	margin: 35px 105px 0 105px;
-
 }
 
 .modal-content-new-photo i {
@@ -618,38 +631,34 @@ hr {
 	padding-bottom: 20px;
 }
 
-#modal-edit-work-form #new-image {
-	background: #B9C5CC;
+.modal-content-new-photo #new-image {
+	background-color: #CBD6DC;
 	border: none;
 	border-radius: 50px;
 	font-family: 'Work Sans';
-	font-size: 14px;
+	font-size: 1em;
 	line-height: 16px;
 	color: #306685;
 	text-align: center;
 	padding: 10px 33px;
-}
-
-#modal-edit-work-form #new-image:hover {
 	cursor: pointer;
 }
 
 .modal-content-new-photo #form-image {
 	margin-top: -36px;
 	width: 173px;
-	background: #B9C5CC;
+	padding: 8px 0;
 	border: none;
 	border-radius: 50px;
-	padding: 10px 0 10px 0;
 	opacity: 0;
 	cursor: pointer;
 }
 
 .modal-content-new-photo p {
-	font-size: 10px;
+	font-size: 0.750em;
 	line-height: 12px;
 	color: #444444;
-	padding-top: 14px;
+	padding-top: 7px;
 }
 
 #modal-edit-work-form .modal-content-new-category-title {
@@ -659,26 +668,25 @@ hr {
 	padding: 10px 105px 0 105px;
 }
 
-#modal-edit-work-form input[type="text"], select {
+.modal-content-new-category-title input[type="text"], select {
 	height: 51px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
 }
 
-#modal-edit-work-form #form-title, #form-category {
+.modal-content-new-category-title #form-title, #form-category {
 	color: #444444;
 	padding-left: 16px;
 	font-family: 'Work Sans';
-	font-size: 14px;
+	font-size: 1em;
 }
 
-#modal-edit-work-form label {
+.modal-content-new-category-title label {
 	padding-top: 20px;
 	padding-bottom: 10px;
-	font-weight: 500;
 }
 
-#modal-edit-work-form .border-in-second-window-of-modal {
+.modal-content-new-category-title .border-in-second-window-of-modal {
 	margin-left: 0;
 	margin-right: 0;
 	margin-top: 45px;

@@ -1,3 +1,4 @@
+// Dynamic addition of works in the portfolio gallery of the page
 // Getting existing works from api
 fetch("http://localhost:5678/api/works") 
 .then(function(response) {
@@ -31,6 +32,7 @@ fetch("http://localhost:5678/api/works")
 	console.log(err);
 });
 
+// Dynamic addition of categories to filter work in the gallery
 // Getting existing categories from api
 fetch("http://localhost:5678/api/categories")
 .then(function(response) {
@@ -42,9 +44,9 @@ fetch("http://localhost:5678/api/categories")
 	let categories = data;
 	categories.unshift({id: 0, name: 'Tous'});
 	console.log(categories);
-	// Looping on each work
+	// Looping on each category
 	categories.forEach((category, index) => {
-		// Creation <button>
+		// Creation <button> to filter
 		let myButton = document.createElement('button');
 		myButton.classList.add('work-filter');
 		myButton.classList.add('filters-design');
@@ -53,7 +55,7 @@ fetch("http://localhost:5678/api/categories")
 		myButton.textContent = category.name;
 		// Adding the new <button> into the existing div.filters
 		document.querySelector("div.filters").appendChild(myButton);
-		// Click event 
+		// Click event <buttton> to filter
 		myButton.addEventListener('click', function(event) {
 			event.preventDefault();
 			// Handling filters
@@ -70,7 +72,7 @@ fetch("http://localhost:5678/api/categories")
 				workItem.style.display = 'block';
 			});
 		});
-	})
+	});
 })
 .catch(function(err) {
 	console.log(err);
@@ -80,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Check if the token and userId are present in the localStorage
 	if(localStorage.getItem('token') != null && localStorage.getItem('userId') != null) {
+		// Change the visual of the page in admin mode
 		document.querySelector('body').classList.add('connected');
 		let topBar = document.getElementById('top-bar');
 		topBar.style.display = "flex";
@@ -96,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		event.preventDefault();
 		localStorage.removeItem('userId');
 		localStorage.removeItem('token');
+		// Changing the page visual when the administrator is disconnected
 		document.querySelector('body').classList.remove(`connected`);
 		let topBar = document.getElementById('top-bar');
 		topBar.style.display = "none";
@@ -105,10 +109,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		space.style.paddingBottom = "0";
 	});
 
-	// Open modal with all galery photos with button "modifier"
+	// Opening the modal with the "modify" button in admin mode, to view all the works
 	document.getElementById('update-works').addEventListener('click', function(event) {
 		event.preventDefault();
-		// New fetch to see all works in the modal work
+		// New fetch to add all works in the work modal
 		fetch("http://localhost:5678/api/works")
 		.then(function(response) {
 			if(response.ok) {
@@ -146,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				trashIcon.addEventListener('click', function(event) {
 					event.preventDefault();
 					if(confirm("Voulez-vous supprimer cet élément ?")) {
-						// Fetch to delete work in the modal work
+						// Fetch to delete work in the work modal and in the portfolio gallery of the page
 						fetch(`http://localhost:5678/api/works/${work.id}`, {
 							method: 'DELETE',
 							headers: {
@@ -157,6 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						.then(function(response) {
 							switch(response.status) {
 							case 500:
+							case 503:
 								alert("Comportement inattendu!");
 								break;
 							case 401:
@@ -164,16 +169,16 @@ document.addEventListener('DOMContentLoaded', function() {
 								break;
 							case 200:
 							case 204:
-								console.log("Supprimer le projet");
-									// Deleting work from the page
+								console.log("Projet supprimé.");
+								// Deleting work from the page
 								document.getElementById(`work-item-${work.id}`).remove();
 								console.log(`work-item-${work.id}`);
-									// Deleting work from the popup
+								// Deleting work from the popup
 								document.getElementById(`work-item-popup-${work.id}`).remove();
 								console.log(`work-item-popup-${work.id}`);
 								break;
 							default:
-								alert("Erreur inconnue");
+								alert("Erreur inconnue!");
 								break;
 							}
 						})
@@ -184,10 +189,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				});
 				// Adding the new <figure> into the existing div.modal-content
 				document.querySelector("div.modal-content").appendChild(myFigure);
-				// Opening modal work
-				let modal = document.getElementById("modal");
+				// Opening work modal 
+				let modal = document.getElementById('modal');
 				modal.style.display = "flex";
-				let modalWorks = document.getElementById("modal-works");
+				let modalWorks = document.getElementById('modal-works');
 				modalWorks.style.display = "block";
 			});
 		})
@@ -196,132 +201,140 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
-	// Close both modal windows with a click outside
+	// Handling modal closure when clicking outside
+	// The work modal cannot close if you click inside its contents
 	document.querySelectorAll('#modal-works').forEach(modalWorks => {
 		modalWorks.addEventListener('click', function(event) {
 			event.stopPropagation();
-		})
+		});
+		// The edit modal cannot close if you click inside its contents
 		document.querySelectorAll('#modal-edit').forEach(modalEdit => {
 			modalEdit.addEventListener('click', function(event) {
 				event.stopPropagation();
-			})
-			document.getElementById("modal").addEventListener('click', function(event) {
+			});
+			// Closing both modal windows with a click outside
+			document.getElementById('modal').addEventListener('click', function(event) {
 				event.preventDefault();
-				let modal = document.getElementById("modal");
+				let modal = document.getElementById('modal');
 				modal.style.display = "none";
-				let modalWorks = document.getElementById("modal-works");
+				let modalWorks = document.getElementById('modal-works');
 				modalWorks.style.display = "none";
-				let modalEdit = document.getElementById("modal-edit");
+				let modalEdit = document.getElementById('modal-edit');
 				modalEdit.style.display = "none";
 				// Reset all form in the modal edit 
-				document.getElementById('modal-edit-work-form').reset();
+				// Delete image if existing
 				if(document.getElementById('form-image-preview') != null) {
 					document.getElementById('form-image-preview').remove();
-				}	
-				let iconNewPhoto = document.getElementById("photo-add-icon");
+				}
+				// Return to original form design
+				document.getElementById('modal-edit-work-form').reset();	
+				let iconNewPhoto = document.getElementById('photo-add-icon');
 				iconNewPhoto.style.display= "block";
-				let buttonNewPhoto = document.getElementById("new-image");
+				let buttonNewPhoto = document.getElementById('new-image');
 				buttonNewPhoto.style.display= "block";
-				let photoMaxSize = document.getElementById("photo-size");
+				let photoMaxSize = document.getElementById('photo-size');
 				photoMaxSize.style.display= "block";	
 				let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 				modalEditPhoto.style.padding = "30px 0 19px 0";
-				document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
+				document.getElementById('submit-new-work').style.backgroundColor= "#A7A7A7";
 			});
 		});
 	});
 
-	// Close first window of modal with button "x"
+	// Closing first window of modal with button "x"
 	document.getElementById('button-to-close-first-window').addEventListener('click', function(event) {
 		event.preventDefault();
-		let modal = document.getElementById("modal");
+		let modal = document.getElementById('modal');
 		modal.style.display = "none";
-		let modalWorks = document.getElementById("modal-works");
+		let modalWorks = document.getElementById('modal-works');
 		modalWorks.style.display = "none";
 	});
 
-	// Close second window of modal with button "x"
+	// Closing second window of modal with button "x"
 	document.getElementById('button-to-close-second-window').addEventListener('click', function(event) {
 		event.preventDefault();
-		let modal = document.getElementById("modal");
+		let modal = document.getElementById('modal');
 		modal.style.display = "none";
-		let modalEdit = document.getElementById("modal-edit");
+		let modalEdit = document.getElementById('modal-edit');
 		modalEdit.style.display = "none";
 		// Reset all form in the modal edit 
-		document.getElementById('modal-edit-work-form').reset();
+		// Delete image if existing
 		if(document.getElementById('form-image-preview') != null) {
 			document.getElementById('form-image-preview').remove();
 		}
-		let iconNewPhoto = document.getElementById("photo-add-icon");
+		// Return to original form design
+		document.getElementById('modal-edit-work-form').reset();
+		let iconNewPhoto = document.getElementById('photo-add-icon');
 		iconNewPhoto.style.display= "block";
-		let buttonNewPhoto = document.getElementById("new-image");
+		let buttonNewPhoto = document.getElementById('new-image');
 		buttonNewPhoto.style.display= "block";
-		let photoMaxSize = document.getElementById("photo-size");
+		let photoMaxSize = document.getElementById('photo-size');
 		photoMaxSize.style.display= "block";	
 		let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 		modalEditPhoto.style.padding = "30px 0 19px 0";
-		document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
+		document.getElementById('submit-new-work').style.backgroundColor= "#A7A7A7";
 	});
 
-	// Open second window of modal with button "Ajouter photo"
+	// Opening second window of modal with button "Ajouter photo"
 	document.getElementById('modal-edit-add').addEventListener('click', function(event) {
 		event.preventDefault();
-		let modalWorks = document.getElementById("modal-works");
+		let modalWorks = document.getElementById('modal-works');
 		modalWorks.style.display = "none";
-		let modalEdit = document.getElementById("modal-edit");
+		let modalEdit = document.getElementById('modal-edit');
 		modalEdit.style.display = "block";
 	});
 
 	// Return first window of modal with arrow
 	document.getElementById('arrow-return').addEventListener('click', function(event) {
 		event.preventDefault();
-		let modalWorks = document.getElementById("modal-works");
+		let modalWorks = document.getElementById('modal-works');
 		modalWorks.style.display = "block";
-		let modalEdit = document.getElementById("modal-edit");
+		let modalEdit = document.getElementById('modal-edit');
 		modalEdit.style.display = "none";
 		// Reset all form in the modal edit 
-		document.getElementById('modal-edit-work-form').reset();
+		// Delete image if existing
 		if(document.getElementById('form-image-preview') != null) {
 			document.getElementById('form-image-preview').remove();
 		}
-		let iconNewPhoto = document.getElementById("photo-add-icon");
+		// Return to original form design
+		document.getElementById('modal-edit-work-form').reset();
+		let iconNewPhoto = document.getElementById('photo-add-icon');
 		iconNewPhoto.style.display= "block";
-		let buttonNewPhoto = document.getElementById("new-image");
+		let buttonNewPhoto = document.getElementById('new-image');
 		buttonNewPhoto.style.display= "block";
-		let photoMaxSize = document.getElementById("photo-size");
+		let photoMaxSize = document.getElementById('photo-size');
 		photoMaxSize.style.display= "block";	
 		let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 		modalEditPhoto.style.padding = "30px 0 19px 0";
-		document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
-
+		document.getElementById('submit-new-work').style.backgroundColor= "#A7A7A7";
 	});
 	
 	// Fetch to add category options in modal edit
 	fetch("http://localhost:5678/api/categories")
 		.then(function(response) {
-		if(response.ok) {
-		return response.json();
-		}
-	})
-		.then(function(data) {
-		console.log(data);
-		let categories = data;
-		// Looping on each categories
-		categories.forEach((category, index) => {
-		// Creation <options> in modal edit
-		let myOption = document.createElement('option');
-		myOption.setAttribute('value', category.id);
-		myOption.textContent = category.name;
-		// Adding the new <option> into the existing select.choice-category
-		document.querySelector("select.choice-category").appendChild(myOption);
+			if(response.ok) {
+			return response.json();
+			}
 		})
-	})
+		.then(function(data) {
+			console.log(data);
+			let categories = data;
+			// Looping on each categories
+			categories.forEach((category, index) => {
+			// Creation <options> in modal edit
+			let myOption = document.createElement('option');
+			myOption.setAttribute('value', category.id);
+			myOption.textContent = category.name;
+			// Adding the new <option> into the existing select.choice-category
+			document.querySelector("select.choice-category").appendChild(myOption);
+			});
+		})
 		.catch(function(err) {
-		console.log(err);
-	});
+			console.log(err);
+		});
 
 	// Handling form
-	document.getElementById("modal-edit-work-form").addEventListener('submit', function(event) {
+	document.getElementById('modal-edit-work-form').addEventListener('submit', function(event) {
 		event.preventDefault();
 		let formData = new FormData();
 		formData.append('title', document.getElementById('form-title').value);
@@ -373,25 +386,27 @@ document.addEventListener('DOMContentLoaded', function() {
 			myFigure.appendChild(myFigCaption);
 			// Adding the new <figure> into the existing div.gallery
 			document.querySelector("div.gallery").appendChild(myFigure);
-			// Close modal
-			let modal = document.getElementById("modal");
+			// Close edit modal
+			let modal = document.getElementById('modal');
 			modal.style.display = "none";
-			let modalEdit = document.getElementById("modal-edit");
+			let modalEdit = document.getElementById('modal-edit');
 			modalEdit.style.display = "none";
 			// Reset all form in the modal edit 
-			document.getElementById('modal-edit-work-form').reset();
+			// Delete image if existing
 			if(document.getElementById('form-image-preview') != null) {
 				document.getElementById('form-image-preview').remove();
 			}
-			let iconNewPhoto = document.getElementById("photo-add-icon");
+			// Return to original form design
+			document.getElementById('modal-edit-work-form').reset();
+			let iconNewPhoto = document.getElementById('photo-add-icon');
 			iconNewPhoto.style.display= "block";
-			let buttonNewPhoto = document.getElementById("new-image");
+			let buttonNewPhoto = document.getElementById('new-image');
 			buttonNewPhoto.style.display= "block";
-			let photoMaxSize = document.getElementById("photo-size");
+			let photoMaxSize = document.getElementById('photo-size');
 			photoMaxSize.style.display= "block";	
 			let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 			modalEditPhoto.style.padding = "30px 0 19px 0";
-			document.getElementById("submit-new-work").style.backgroundColor= "#A7A7A7";
+			document.getElementById('submit-new-work').style.backgroundColor= "#A7A7A7";
 		})
 		.catch(function(err) {
 			console.log(err);
@@ -408,18 +423,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		else {
 			if(fileInput.files.length > 0) {
-            // Creation of the image preview
-				let myPreviewImage = document.createElement("img");
+            	// Creation of the image preview
+				let myPreviewImage = document.createElement('img');
 				myPreviewImage.setAttribute('id','form-image-preview');
 				myPreviewImage.src = URL.createObjectURL(fileInput.files[0]);
 				document.querySelector('#modal-edit-new-photo').appendChild(myPreviewImage);
 				myPreviewImage.style.display = "block";	
 				myPreviewImage.style.height ="169px";
-				let iconNewPhoto = document.getElementById("photo-add-icon");
+				let iconNewPhoto = document.getElementById('photo-add-icon');
 				iconNewPhoto.style.display= "none";
-				let buttonNewPhoto = document.getElementById("new-image");
+				let buttonNewPhoto = document.getElementById('new-image');
 				buttonNewPhoto.style.display= "none";
-				let photoMaxSize = document.getElementById("photo-size");
+				let photoMaxSize = document.getElementById('photo-size');
 				photoMaxSize.style.display= "none";	
 				let modalEditPhoto = document.getElementById('modal-edit-new-photo');
 				modalEditPhoto.style.padding = "0";
@@ -427,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
-	// Binder the checkNewProjectFields() function on the 3 fields by listening to the "input" & "change" events
+	// Binder the checkNewProjectFields() function on the 3 fields by listening to the "input" events
 	document.getElementById('form-title').addEventListener('input', checkNewProjectFields);
 	document.getElementById('form-category').addEventListener('input', checkNewProjectFields);
 	document.getElementById('form-image').addEventListener('input', checkNewProjectFields);
@@ -437,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		let title = document.getElementById('form-title');
 		let category = document.getElementById('form-category');
 		let image = document.getElementById('form-image');
-		let submitWork = document.getElementById("submit-new-work");
+		let submitWork = document.getElementById('submit-new-work');
 		if(title.value.trim() === "" || category.value.trim() === "" || image.files.length === 0) {
 			submitWork.style.backgroundColor= "#A7A7A7";
 		} else {
