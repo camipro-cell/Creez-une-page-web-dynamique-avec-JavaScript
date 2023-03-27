@@ -13,8 +13,8 @@ fetch("http://localhost:5678/api/works")
 	works.forEach((work, index) => {
 		// Creation <figure>
 		let myFigure = document.createElement('figure');
-		myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
-		myFigure.setAttribute ('id', `work-item-${work.id}`);
+		myFigure.setAttribute('class', `work-item category-id-0 category-id-${work.categoryId}`);
+		myFigure.setAttribute('id', `work-item-${work.id}`);
 		// Creation <img>
 		let myImg = document.createElement('img');
 		myImg.setAttribute('src', work.imageUrl);
@@ -32,7 +32,7 @@ fetch("http://localhost:5678/api/works")
 	console.log(err);
 });
 
-// Dynamic addition of categories to filter work in the gallery
+// Adding filters of categories to filter work in the gallery
 // Getting existing categories from api
 fetch("http://localhost:5678/api/categories")
 .then(function(response) {
@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			works.forEach((work, index) => {
 				// Creation <figure>
 				let myFigure = document.createElement('figure');
-				myFigure.setAttribute ('class', `work-item category-id-0 category-id-${work.categoryId}`);
-				myFigure.setAttribute ('id', `work-item-popup-${work.id}`);
+				myFigure.setAttribute('class', `work-item category-id-0 category-id-${work.categoryId}`);
+				myFigure.setAttribute('id', `work-item-popup-${work.id}`);
 				// Creation <img>
 				let myImg = document.createElement('img');
 				myImg.setAttribute('src', work.imageUrl);
@@ -160,25 +160,25 @@ document.addEventListener('DOMContentLoaded', function() {
 						})
 						.then(function(response) {
 							switch(response.status) {
-							case 500:
-							case 503:
-								alert("Comportement inattendu!");
+								case 500:
+								case 503:
+									alert("Comportement inattendu!");
 								break;
-							case 401:
-								alert("Suppresion impossible!");
+								case 401:
+									alert("Suppresion impossible!");
 								break;
-							case 200:
-							case 204:
-								console.log("Projet supprimé.");
-								// Deleting work from the page
-								document.getElementById(`work-item-${work.id}`).remove();
-								console.log(`work-item-${work.id}`);
-								// Deleting work from the popup
-								document.getElementById(`work-item-popup-${work.id}`).remove();
-								console.log(`work-item-popup-${work.id}`);
+								case 200:
+								case 204:
+									console.log("Projet supprimé.");
+									// Deleting work from the page
+									document.getElementById(`work-item-${work.id}`).remove();
+									console.log(`work-item-${work.id}`);
+									// Deleting work from the popup
+									document.getElementById(`work-item-popup-${work.id}`).remove();
+									console.log(`work-item-popup-${work.id}`);
 								break;
-							default:
-								alert("Erreur inconnue!");
+								default:
+									alert("Erreur inconnue!");
 								break;
 							}
 						})
@@ -313,11 +313,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	fetch("http://localhost:5678/api/categories")
 		.then(function(response) {
 			if(response.ok) {
-			return response.json();
+				return response.json();
 			}
 		})
 		.then(function(data) {
-			console.log(data);
 			let categories = data;
 			// Looping on each categories
 			categories.forEach((category, index) => {
@@ -350,21 +349,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(function(response) {
 			switch(response.status) {
-			case 500:
-			case 503:
-				alert("Erreur inattendue!");
+				case 500:
+				case 503:
+					alert("Erreur inattendue!");
 				break;
-			case 400:
-			case 404:
-				alert("Impossible d'ajouter le nouveau projet!");
+				case 400:
+				case 404:
+					alert("Impossible d'ajouter le nouveau projet!");
 				break;
-			case 200:
-			case 201:
-				console.log("Projet ajouté avec succés!");
-				return response.json();
+				case 200:
+				case 201:
+					console.log("Projet ajouté avec succés!");
+					return response.json();
 				break;
-			default:
-				alert("Erreur inconnue!");
+				default:
+					alert("Erreur inconnue!");
 				break;
 			}
 		})
@@ -373,8 +372,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			// Creating HTML element
 			// Creation <figure>
 			let myFigure = document.createElement('figure');
-			myFigure.setAttribute ('class', `work-item category-id-0 category-id-${json.categoryId}`);
-			myFigure.setAttribute ('id', `work-item-${json.id}`);
+			myFigure.setAttribute('class', `work-item category-id-0 category-id-${json.categoryId}`);
+			myFigure.setAttribute('id', `work-item-${json.id}`);
 			// Creation <img>
 			let myImg = document.createElement('img');
 			myImg.setAttribute('src', json.imageUrl);
@@ -417,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('form-image').addEventListener('change', () => {
 		let fileInput = document.getElementById('form-image');
 		const maxFileSize = 4 * 1024 * 1024; // 4MB
-		if (fileInput.files[0].size > maxFileSize) {
+		if(fileInput.files[0].size > maxFileSize) {
 			alert("Le fichier sélectionné est trop volumineux. La taille maximale est de 4 Mo.");
 			document.getElementById('form-image').value = '';
 		}
